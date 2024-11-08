@@ -1,17 +1,20 @@
+import { config } from "@tamagui/config";
+import React from "react";
 import { Text, View } from "react-native";
+import { TamaguiProvider, createTamagui } from "tamagui";
+
+const tamaguiConfig = createTamagui(config);
+
+declare module "@tamagui/core" {
+}
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <TamaguiProvider config={tamaguiConfig}>
+    <View>
       <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Text>heyaz</Text>
     </View>
+    </TamaguiProvider>
   );
 }
