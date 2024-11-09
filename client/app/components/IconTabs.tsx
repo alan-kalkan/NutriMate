@@ -1,6 +1,6 @@
 import React from "react";
 import { House, User, Heart, BookPlus } from "lucide-react-native";
-import { View, YStack } from "tamagui";
+import { YStack } from "tamagui";
 export default function IconTabs() {
   return (
     <YStack
