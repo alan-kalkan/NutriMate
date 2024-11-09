@@ -1,12 +1,18 @@
 import dotenv from "dotenv";
 import express from "express";
-import connectDB from "./config/db";
+import db from "./config/db";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
 const app = express();
 
-connectDB();
+app.use(bodyParser.json());
+
+db.connect((err) => {
+  if (err) throw err;
+  console.log("Connected to MySQL database");
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

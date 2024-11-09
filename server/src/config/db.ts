@@ -1,17 +1,13 @@
-import mongoose from "mongoose";
+import mysql from "mysql2";
+import dotenv from "dotenv";
 
-const connectDB = async () => {
-  try {
-    const uri = process.env.MONGODB_URI;
-    if (!uri) {
-      throw new Error("La chaîne de connexion MongoDB n'est pas définie.");
-    }
-    await mongoose.connect(uri, {});
-    console.log("MongoDB connecté");
-  } catch (error) {
-    console.error("Erreur de connexion à MongoDB:", error);
-    process.exit(1);
-  }
-};
+dotenv.config();
 
-export default connectDB;
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+
+export default db;
