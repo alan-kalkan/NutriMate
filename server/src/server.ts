@@ -16,7 +16,7 @@ db.connect((err) => {
 });
 
 app.use("/users", usersRoutes);
-
+console.log("test");
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
