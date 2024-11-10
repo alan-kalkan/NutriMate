@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@prisma/client": "^4.16.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
@@ -8,12 +9,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.0",
     "mysql2": "^3.11.4",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "prisma": "^4.16.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   },
   "scripts": {

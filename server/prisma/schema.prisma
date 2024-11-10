@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  description String?   @db.VarChar(45)
+  products    ProductCategory[] // References join table ProductCategory for many-to-many relationship with Product
+}
+
+model Product {
+  id          String            @id @db.VarChar(255)
+  name        String            @db.VarChar(255)
+  description String?           @db.VarChar(45)
+  price       Decimal           @db.Decimal(10, 2)
+  image_url   String?           @db.VarChar(255)
+  created_at  String?           @db.VarChar(45)
+  categories  ProductCategory[] // References join table ProductCategory for many-to-many relationship with Category
+}
+
+model ProductCategory {
+  product_id  String   @map("product_id")
+  category_id Int      @map("category_id")
+  product     Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
+
+  @@id([product_id, category_id]) // Composite primary key to ensure uniqueness of each pair
+}
+
+model User {
+  id         String    @id @unique(map: "id_UNIQUE") @db.VarChar(255)
+  name       String    @db.VarChar(255)
+  last_name  String    @db.VarChar(255)
+  email      String    @unique(map: "email_UNIQUE") @db.VarChar(255)
+  password   String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+}
