@@ -13,7 +13,7 @@ import { TAB_ICONS } from "./navigation/tabIcons";
 import * as SplashScreen from 'expo-splash-screen';
 import CircularText from "./components/CircularText";
 import configuration from "./tamagui.config";
-import ProductDetails from "./screens/ProductDetails";
+// import ProductDetails from "./screens/ProductDetails";
 
 declare module "@tamagui/core" {
 }
