@@ -11,27 +11,29 @@ model Category {
   id          String    @id @db.VarChar(255) @unique
   name        String    @db.VarChar(255) @unique
   description String?   @db.VarChar(1000)
-  products    ProductCategory[] // References join table ProductCategory for many-to-many relationship with Product
+  products    ProductCategory[]
 }
 
 model Brand {
   id          String    @id @db.VarChar(255) @unique
   name        String    @db.VarChar(255) @unique
   description String?   @db.VarChar(1000)
-  products    Product[] // References join table ProductCategory for many-to-many relationship with Product
+  products    Product[]
 }
 
 model Product {
   id          String            @id @db.VarChar(255) @unique
   name        String            @db.VarChar(255) @unique
   description String?           @db.VarChar(1000)
-  treatmentDuration Int?          @db.Int()
+  treatmentDuration Int?        @db.Int()
   price       Decimal           @db.Decimal(10, 2)
-  image_url   String?           @db.VarChar(1000)
+  image_url   String?           @db.Text
+  averageRating Float?          @db.Float()
   created_at  DateTime          @db.Timestamp(0)
   brand       Brand?            @relation(fields: [brand_id], references: [id], onDelete: Cascade)
   brand_id    String?           @db.VarChar(255)
-  categories  ProductCategory[] // References join table ProductCategory for many-to-many relationship with Category
+  categories  ProductCategory[]
+  reviews     Review[]        
 }
 
 model ProductCategory {
@@ -40,7 +42,20 @@ model ProductCategory {
   product     Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   category    Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
-  @@id([product_id, category_id]) // Composite primary key to ensure uniqueness of each pair
+  @@id([product_id, category_id])
+}
+
+model Review {
+  id          String    @id @default(uuid()) @db.VarChar(255)
+  rating      Int       @db.Int()
+  comment     String?   @db.Text
+  created_at  DateTime  @default(now()) @db.Timestamp(0)
+  product     Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id  String    @db.VarChar(255)
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     String    @db.VarChar(255)
+
+  @@unique([user_id, product_id])
 }
 
 model User {
@@ -51,4 +66,5 @@ model User {
   email      String    @unique(map: "email_UNIQUE") @db.VarChar(255)
   password   String    @db.VarChar(255)
   created_at DateTime? @db.Timestamp(0)
+  reviews    Review[] 
 }

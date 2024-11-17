@@ -23,13 +23,29 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
 // READ
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
     try {
-      const products = await prisma.product.findMany();
+      const products = await prisma.product.findMany({
+        include: {
+          brand: true,
+          reviews: true,
+        }
+      });
       res.json(products);
     } catch (error: any) {
         res.status(500).json({ error: 'Internal server error' });
       }
   };
 
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
+try {
+  const { id } = req.params;
+  const product = await prisma.product.findUnique({
+    where: { id }
+  });
+  res.json(product);
+} catch (error: any) {
+  res.status(500).json({ error: 'Internal server error' });
+}
+}
 // UPDATE
 export const updateProduct = async (req: Request, res: Response): Promise<void> => {
 
