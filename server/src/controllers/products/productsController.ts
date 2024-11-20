@@ -31,21 +31,43 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
       });
       res.json(products);
     } catch (error: any) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Products not found' });
       }
   };
 
 export const getProductById = async (req: Request, res: Response): Promise<void> => {
-try {
-  const { id } = req.params;
-  const product = await prisma.product.findUnique({
-    where: { id }
-  });
-  res.json(product);
-} catch (error: any) {
-  res.status(500).json({ error: 'Internal server error' });
-}
-}
+    const { id } = req.params;
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id }
+      });
+      res.json(product);
+    } catch (error: any) {
+      res.status(500).json({ error: 'Product not found for id: ' + {id} });
+    }
+  };
+
+export const getProductByName = async (req: Request, res: Response): Promise<void> => {
+    const { productName } = req.params;
+    try {
+      const product = await prisma.product.findFirst({
+        where: { 
+          name: {
+            contains: productName,
+          }
+        }
+      });
+      
+      if (!product) {
+        res.status(404).json({ error: `Product not found for name: ${productName}` });
+        return;
+      }
+      
+      res.json(product);
+    } catch (error: any) {
+      res.status(500).json({ error: `Error searching for product: ${productName}` });
+    }
+  };
 // UPDATE
 export const updateProduct = async (req: Request, res: Response): Promise<void> => {
 
