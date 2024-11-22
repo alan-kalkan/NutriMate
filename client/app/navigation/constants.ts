@@ -10,4 +10,4 @@ export const ROUTES = {
   
 
   export const TAB_BAR_HEIGHT = 70;
-  export const HEADER_HEIGHT = 44;
+  export const HEADER_HEIGHT = 0;

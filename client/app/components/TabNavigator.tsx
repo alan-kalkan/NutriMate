@@ -7,6 +7,7 @@ import { TAB_ICONS } from "../navigation/tabIcons";
 import Account from "../screens/Account";
 import Favorites from "../screens/Favorites";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View } from "tamagui";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,15 +18,19 @@ export default function TabNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          height: TAB_BAR_HEIGHT,
+          height: 90,
         },
         tabBarIcon: ({ focused, color, size }) => {
           const strokeWidth = focused ? 2 : 1;
           const Icon = TAB_ICONS[route.name as keyof typeof TAB_ICONS]; 
-          return <Icon size={size} color={color} strokeWidth={strokeWidth} />;
+          return (
+            <View marginTop={10}>
+              <Icon size={size} color={color} strokeWidth={strokeWidth} width={30} height={30}/>
+            </View>
+          );
         },
-        tabBarActiveTintColor: "aqua",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "$bluePrimary",
+        tabBarInactiveTintColor: "$greySecondary",
       })}
     >
       <Tab.Screen name={ROUTES.HOME} component={Home} />

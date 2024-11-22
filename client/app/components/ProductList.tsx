@@ -34,12 +34,13 @@ export function ProductList({ navigation }: { navigation: any }) {
   }
   const handleProductPress = (productId: string) => {
     navigation.navigate(ROUTES.PRODUCT_DETAILS, { productId });
-    console.log("productId", productId);
   };
+
   return (
     <YStack height={400}>
       <ScrollView marginHorizontal="$4" marginTop="$6">
         {products.map((product) => (
+          console.log('product', JSON.stringify(product, null, 2)),
           <ProductCard
             key={product.id}
             product={product}

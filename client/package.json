@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@fontsource/work-sans": "^5.1.0",
     "@react-navigation/native": "^6.0.2",
     "@reduxjs/toolkit": "^2.3.0",
     "@tamagui/config": "^1.116.14",

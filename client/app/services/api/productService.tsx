@@ -1,9 +1,10 @@
-import { ENDPOINTS } from './enpoints';
+import { PRODUCT_ENDPOINTS } from './enpoints';
 import { Product } from '@/app/types/Product';
 
 export const productService = {
   async getProducts(): Promise<Product[]> {
-    const response = await fetch(ENDPOINTS.products);
+    const response = await fetch(PRODUCT_ENDPOINTS.products);
+
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }
@@ -11,8 +12,8 @@ export const productService = {
   },
 
   async getProductById(productId: string): Promise<Product> {
-    const response = await fetch(`${ENDPOINTS.productsById}/${productId}`);
-    console.log("response", response);
+    const response = await fetch(`${PRODUCT_ENDPOINTS.productsById}/${productId}`);
+
     if (!response.ok) {
       throw new Error('Failed to fetch product');
     }
@@ -20,10 +21,20 @@ export const productService = {
   },
 
   async getProductByName(productName: string): Promise<Product> {
-    const response = await fetch(`${ENDPOINTS.productsByName}/${productName}`);
+    const response = await fetch(`${PRODUCT_ENDPOINTS.productsByName}/${productName}`);
+    
     if (!response.ok) {
       throw new Error('Failed to search product for: ' + {productName})
     }
     return response.json();
   },
+
+  async getBrandProducts(brandId: string): Promise<Product[]> {
+    const response = await fetch(`${PRODUCT_ENDPOINTS.brandById}/${brandId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch brand products');
+    }
+    return response.json();
+  }
 };
