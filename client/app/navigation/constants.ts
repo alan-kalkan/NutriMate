@@ -4,6 +4,7 @@ export const ROUTES = {
     FAVORITES: 'Favorites',
     ACCOUNT: 'Account',
     SEARCH: 'Search',
+    PRODUCT_LIST: 'ProductList',
     PRODUCT_DETAILS: 'ProductDetails',
   } as const;
   

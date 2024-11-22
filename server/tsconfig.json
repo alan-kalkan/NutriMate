@@ -2,7 +2,7 @@
   "compilerOptions": {
       "target": "ES6",                   // Version ECMAScript cible
       "module": "commonjs",               // Utilisé pour Node.js
-      "outDir": "./dist",                 // Dossier de sortie pour les fichiers compilés
+      "outDir": "./dist",
       "rootDir": "./src",                 // Dossier source
       "strict": true,                     // Active les vérifications strictes de TypeScript
       "esModuleInterop": true,            // Facilite l'import des modules CommonJS

@@ -9,11 +9,21 @@ export const productService = {
     }
     return response.json();
   },
+
   async getProductById(productId: string): Promise<Product> {
-    const response = await fetch(`${ENDPOINTS.products}/${productId}`);
+    const response = await fetch(`${ENDPOINTS.productsById}/${productId}`);
+    console.log("response", response);
     if (!response.ok) {
       throw new Error('Failed to fetch product');
     }
     return response.json();
-  }
+  },
+
+  async getProductByName(productName: string): Promise<Product> {
+    const response = await fetch(`${ENDPOINTS.productsByName}/${productName}`);
+    if (!response.ok) {
+      throw new Error('Failed to search product for: ' + {productName})
+    }
+    return response.json();
+  },
 };
