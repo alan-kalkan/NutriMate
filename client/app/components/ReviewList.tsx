@@ -22,7 +22,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
     try {
       const data = await reviewService.getReviewsByProduct(productId);
       setReviews(data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch reviews");
     } finally {
       setIsLoading(false);
@@ -38,16 +38,20 @@ export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
   }
   return (
     <View>
-      {reviews.map((review) => (
-        <YStack key={review.id} padding={15} marginVertical={10} backgroundColor="#f9f9f9" borderRadius={10} shadowColor="#000" shadowOffset={{ width: 0, height: 2 }} shadowOpacity={0.1} shadowRadius={5}>
+      {reviews.length > 0 ? (
+        reviews.map((review) => (
+          <YStack key={review.id} padding={15} marginVertical={10} backgroundColor="#f9f9f9" borderRadius={10} shadowColor="#000" shadowOffset={{ width: 0, height: 2 }} shadowOpacity={0.1} shadowRadius={5}>
           <View flexDirection="row" alignItems="center" marginBottom={5} gap="$3.5">
             <Text fontWeight="bold" fontSize={16} color="#333">{review.user.name} {review.user.last_name}</Text>
             <Rating readonly={true} startingValue={review.rating} imageSize={13} />
           </View>
           <Text fontSize={14} color="#555" marginBottom={5}>{review.comment}</Text>
           <Text fontSize={12} color="#aaa">Reviewed on {new Date(review.created_at).toLocaleDateString()}</Text>
-        </YStack>
-      ))}
+          </YStack>
+        ))
+      ) : (
+        <Text textAlign="center" fontSize={14} color="#555" marginBottom={10}>No reviews found, write the first one !</Text>
+      )}
     </View>
   );
 };

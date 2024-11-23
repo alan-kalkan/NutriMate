@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, YStack, Image, Button, Spacer, ScrollView } from 'tamagui';
+import { View, Text, YStack, Image, ScrollView } from 'tamagui';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft } from 'lucide-react-native';
 
 import { Product } from '../types/Product';
-import { productService } from '../services/api/productService';
 import { ReviewList } from '../components/ReviewList';
 import { AddReview } from '../components/AddReview';
+import { fetchProductById } from '../services/utils/fetchProducts';
 
 export default function ProductDetails({ route }: { route: any }) {
   const navigation = useNavigation();
@@ -15,17 +15,7 @@ export default function ProductDetails({ route }: { route: any }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const data = await productService.getProductById(productId);
-        setProduct(data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération du produit:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchProduct();
+    fetchProductById(productId, setProduct, setIsLoading);
   }, [productId]);
 
   if (isLoading) {
@@ -35,27 +25,24 @@ export default function ProductDetails({ route }: { route: any }) {
   if (!product) {
     return <Text>Product not found</Text>;
   }
-
+  console.log('productDetails', JSON.stringify(product, null, 2));
   return (
     <ScrollView>
-    <YStack flexDirection="row" alignItems="center" marginTop={16} marginLeft={16}>
+    <YStack flexDirection="row" justifyContent="center" alignItems="center" marginTop={16} marginLeft={16}>
       <ArrowLeft
         width={30}
         height={30}
-        padding={10}
-        borderRadius={5}
         color="black"
         onPress={() => navigation.goBack()}
+        style={{position: 'absolute', left: 0}}
       />
-      <Spacer flex={1} />
-      <Text fontSize={26} fontWeight="bold" fontFamily="Roboto" color="#666">
+      <Text fontSize={26} fontWeight="bold" ff="$body" color="black" textTransform="uppercase">
         {product.brand.name}
       </Text>
-      <Spacer flex={1} />
     </YStack>
     <View padding={16} backgroundColor="#fff">
       {product.image_url && (
-        <Image width="100%" height={200} borderRadius={8} marginBottom={16}
+        <Image width={300} height={200} borderRadius={8} marginBottom={16} resizeMode="contain"
           source={{ uri: product.image_url }}
         />
       )}

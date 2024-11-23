@@ -111,4 +111,4 @@ const hexOpacities = {
    */
   export const opacifyHexColor = (hexColor: string, opacity: keyof typeof hexOpacities): string => {
     return `${hexColor}${hexOpacities[opacity]}`;
-  };
+  }

@@ -2,7 +2,7 @@ import React from "react";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Settings from "../screens/Settings";
-import { ROUTES, TAB_BAR_HEIGHT } from "../navigation/constants";
+import { ROUTES } from "../navigation/constants";
 import { TAB_ICONS } from "../navigation/tabIcons";
 import Account from "../screens/Account";
 import Favorites from "../screens/Favorites";
@@ -29,8 +29,13 @@ export default function TabNavigator() {
             </View>
           );
         },
-        tabBarActiveTintColor: "#075700",
+        tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "#757575",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "bold",
+          paddingTop: 10,
+        },
       })}
     >
       <Tab.Screen name={ROUTES.HOME} component={Home} />

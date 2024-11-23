@@ -2,7 +2,7 @@ import { Card, XStack, YStack, Text, Image, View } from "tamagui";
 import React from "react";
 import { Rating } from "react-native-ratings";
 import { Product } from "../types/Product";
-
+import { calculateAverageRating } from "../services/utils/reviewAverage";
 
 interface ProductCardProps {
   product: Product;
@@ -13,7 +13,9 @@ export function ProductCard({
   product,
   onPress,
 }: ProductCardProps) {
-  console.log("product", JSON.stringify(product))
+  
+  const averageRating = calculateAverageRating(product.reviews || []);
+
   return (
     <View>
       <Card
@@ -62,7 +64,7 @@ export function ProductCard({
             <Rating
               readonly={true}
               tintColor="#FFFF"
-              startingValue={product.averageRating || 0}
+              startingValue={averageRating}
               imageSize={15}
               style={{
                 marginTop: 8,
