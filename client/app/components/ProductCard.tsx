@@ -13,7 +13,7 @@ export function ProductCard({
   product,
   onPress,
 }: ProductCardProps) {
-
+  console.log("product", JSON.stringify(product))
   return (
     <View>
       <Card
@@ -27,13 +27,13 @@ export function ProductCard({
       >
         <XStack padding="$4" alignItems="center" justifyContent="space-between" backgroundColor="white">
           <YStack flex={1}>
-            <Text fontSize="$3" color="#666" fontFamily="Work Sans" fontWeight="bold">
+            <Text fontSize="$3" color="#666" fontFamily="$archivo" fontWeight="bold">
               {product.brand.name}
             </Text>
-            <Text fontSize="$4" fontFamily="Work Sans" fontWeight="bold" color="#333">
+            <Text fontSize="$4" fontFamily="$workSans" fontWeight="bold" color="#333">
               {product.name}
             </Text>
-            <Text fontSize="$3" color="#666" fontFamily="Work Sans">
+            <Text fontSize="$3" color="#666" fontFamily="$workSans">
               {product.price} €
             </Text>
             {product.description && (
@@ -42,7 +42,7 @@ export function ProductCard({
                 color="$gray10"
                 numberOfLines={2}
                 ellipsizeMode="tail"
-                fontFamily="Work Sans"
+                fontFamily="$workSans"
               >
                 {product.description}
               </Text>

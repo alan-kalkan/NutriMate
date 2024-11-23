@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, YStack, Image, Button, Spacer } from 'tamagui';
+import { View, Text, YStack, Image, Button, Spacer, ScrollView } from 'tamagui';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft } from 'lucide-react-native';
 
@@ -37,9 +37,11 @@ export default function ProductDetails({ route }: { route: any }) {
   }
 
   return (
-    <>
+    <ScrollView>
     <YStack flexDirection="row" alignItems="center" marginTop={16} marginLeft={16}>
       <ArrowLeft
+        width={30}
+        height={30}
         padding={10}
         borderRadius={5}
         color="black"
@@ -58,22 +60,22 @@ export default function ProductDetails({ route }: { route: any }) {
         />
       )}
       <YStack padding={16} backgroundColor="#fff" borderRadius={8}>
-        <Text fontSize={24} color="#333" fontFamily="Roboto" fontWeight="bold" marginBottom={8}>
+        <Text fontSize={24} color="#333" fontFamily="$archivo" fontWeight="bold" marginBottom={8}>
           {product.name}
         </Text>
-        <Text fontSize={16} color="#666" fontFamily="Roboto" marginBottom={8}>
+        <Text fontSize={16} color="#666" fontFamily="$archivo" marginBottom={8}>
           {product.description}
         </Text>
-        <Text fontSize={16} color="#666" fontFamily="Roboto" marginBottom={8}>
+        <Text fontSize={16} color="#666" fontFamily="$archivo" marginBottom={8}>
           Prix: {product.price} €
         </Text>
-        <Text fontSize={16} color="#666" fontFamily="Roboto" marginBottom={8}>
+        <Text fontSize={16} color="#666" fontFamily="$archivo" marginBottom={8}>
           Durée du traitement: {product.treatmentDuration} mois
         </Text>
       </YStack>
       <ReviewList productId={productId} />
       <AddReview />
     </View>
-    </>
+    </ScrollView>
   );
 }

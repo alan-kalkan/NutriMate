@@ -29,8 +29,8 @@ export default function TabNavigator() {
             </View>
           );
         },
-        tabBarActiveTintColor: "$bluePrimary",
-        tabBarInactiveTintColor: "$greySecondary",
+        tabBarActiveTintColor: "#075700",
+        tabBarInactiveTintColor: "#757575",
       })}
     >
       <Tab.Screen name={ROUTES.HOME} component={Home} />

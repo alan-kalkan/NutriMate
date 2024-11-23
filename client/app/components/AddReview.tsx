@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Input, Button } from 'tamagui';
+import { reviewService } from '../services/api/reviewService';
 
 export const AddReview = () => {
   const [content, setContent] = useState('');
 
   const handleAddReview = () => {
     if (content.trim()) {
-      onAddReview(content);
+      reviewService.addReview({ comment: content, rating: 5 });
       setContent('');
     }
   };
