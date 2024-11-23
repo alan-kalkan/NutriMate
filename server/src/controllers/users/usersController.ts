@@ -30,6 +30,16 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const getUserById = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
+    res.json(user);
+  } catch (error: any) {
+    res.status(500).json({ error: `Internal server error: ${error.message}` });
+  }
+};
+
 // UPDATE
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
     const { id, ...updateData } = req.body;

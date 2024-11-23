@@ -23,13 +23,65 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
 // READ
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
     try {
-      const products = await prisma.product.findMany();
+      const products = await prisma.product.findMany({
+        include: {
+          brand: true,
+          reviews: true,
+        }
+      });
       res.json(products);
     } catch (error: any) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Products not found' });
       }
   };
 
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id },
+        include: {
+          brand: {
+            select: {
+              name: true, // Ensure the brand name is included
+            }
+          },
+          reviews: true,
+        }
+      });
+      
+      if (!product) {
+        res.status(404).json({ error: 'Product not found for id: ' + id });
+        return;
+      }
+
+      res.json(product);
+    } catch (error: any) {
+      res.status(500).json({ error: 'Error retrieving product for id: ' + id });
+    }
+};
+
+export const getProductByName = async (req: Request, res: Response): Promise<void> => {
+    const { productName } = req.params;
+    try {
+      const product = await prisma.product.findFirst({
+        where: { 
+          name: {
+            contains: productName,
+          }
+        }
+      });
+      
+      if (!product) {
+        res.status(404).json({ error: `Product not found for name: ${productName}` });
+        return;
+      }
+      
+      res.json(product);
+    } catch (error: any) {
+      res.status(500).json({ error: `Error searching for product: ${productName}` });
+    }
+  };
 // UPDATE
 export const updateProduct = async (req: Request, res: Response): Promise<void> => {
 

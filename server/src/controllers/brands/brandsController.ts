@@ -20,7 +20,6 @@ export const addBrand = async (req: Request, res: Response): Promise<void> => {
 
 //READ
 export const getProductsByBrand = async (req: Request, res: Response): Promise<void> => {
-    console.log('getProductsByBrand: ', req.params);
     const { brandId } = req.params;
 
     try {
@@ -31,6 +30,17 @@ export const getProductsByBrand = async (req: Request, res: Response): Promise<v
     } catch (error: any) {
         res.status(500).json({ error: `Error fetching products from brand: ${brandId}` });
     }  
+}
+
+export const getBrandById = async (req: Request, res: Response): Promise<void> => {
+    const { brandId } = req.params;
+
+    try {
+        const brand = await prisma.brand.findUnique({ where: { id: brandId }});
+        res.json(brand);
+    } catch (error: any) {
+        res.status(500).json({ error: `Error fetching brand: ${brandId}` });
+    }
 }
 
 //UPDATE
