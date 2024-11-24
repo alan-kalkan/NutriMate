@@ -88,7 +88,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 // UPDATE
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
     const { id, ...updateData } = req.body;
-    
+    console.log(req.body);
     try {
         const user = await prisma.user.update({
             where: { id: id },
