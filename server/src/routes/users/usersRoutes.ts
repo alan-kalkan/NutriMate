@@ -1,20 +1,19 @@
 import express from 'express';
 import { addUser, deleteUser, getUserById, getUsers, loginUser, registerUser, updateUser } from '../../controllers/users/usersController';
+import { authenticateToken } from '../../middlewares/JWT';
 
 const router = express.Router();
 
-router.post('/addUser', addUser);
+   // Public routes
+   router.post('/register', registerUser);
+   router.post('/login', loginUser);
 
-router.post('/registerUser', registerUser);
+   // Protected routes
+   router.post('/addUser', authenticateToken, addUser);
+   router.get('/getUsers', authenticateToken, getUsers);
+   router.get('/getUserById/:id', authenticateToken, getUserById);
+   router.put('/updateUser', authenticateToken, updateUser);
+   router.delete('/deleteUser', authenticateToken, deleteUser);
 
-router.get('/getUsers', getUsers);
-
-router.post('/loginUser', loginUser);
-
-router.get('/getUserById/:id', getUserById);
-
-router.put('/updateUser', updateUser)
-
-router.delete('/deleteUser', deleteUser)
 
 export default router;
