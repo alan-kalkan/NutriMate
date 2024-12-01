@@ -1,35 +1,41 @@
 import React, { useState } from "react";
 import { View, Button, Input } from "tamagui";
-import { userService } from "../services/api/userService";
-import { ROUTES } from "../navigation/constants";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ArrowLeft } from "lucide-react-native";
 import { useAuth } from "../context/AuthContext";
+import handleRegister from "../services/utils/handleRegister";
+import { useNavigation } from "@react-navigation/native";
+import { RouteNames } from "../navigation/constants";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type AccountScreenNavigationProp = StackNavigationProp<
+  Record<RouteNames, undefined>
+>;
 
 export default function Register() {
-    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [last_name, setLastName] = useState("");
     const [gender, setGender] = useState("");
     const { setIsLoggedIn } = useAuth();
-
-    const handleRegister = async () => {
-        try {
-            const response = await userService.register(email, password, name, last_name, gender);
-            alert(response.message);
-            setIsLoggedIn(true);
-            navigation.navigate("index");
-        } catch (error) {
-            console.error("An error occurred during registration", error);
-        }
-    };
+    const navigation = useNavigation<AccountScreenNavigationProp>();
 
     return (
-        <View>
-            <Input
-                placeholder="Email"
+        <View 
+            flex={1}
+            justifyContent="center"
+            alignItems="center"
+            padding={16}
+        >   
+            <View position="absolute" top={65} left={16}>
+                <ArrowLeft
+                    color="black"
+                    onPress={() => navigation.goBack()} 
+                />
+            </View>
+            <View gap={16}>
+                <Input
+                    placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
             />
@@ -49,29 +55,28 @@ export default function Register() {
                 value={last_name}
                 onChangeText={setLastName}
             />
-            <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <Button
-                        onPress={() => setGender('M')}
-                        style={{ backgroundColor: gender === 'M' ? 'lightblue' : 'transparent' }}
-                    >
-                        Male
-                    </Button>
-                    <Button
-                        onPress={() => setGender('F')}
-                        style={{ backgroundColor: gender === 'F' ? 'lightblue' : 'transparent' }}
-                    >
-                        Female
-                    </Button>
-                    <Button
-                        onPress={() => setGender('Other')}
-                        style={{ backgroundColor: gender === 'Other' ? 'lightblue' : 'transparent' }}
-                    >
-                        Other
+            <View style={{ flexDirection: 'row', justifyContent: 'center', marginVertical: 8 }}>
+                <Button
+                    onPress={() => setGender('M')}
+                    backgroundColor={gender === 'M' ? 'lightblue' : 'transparent'}
+                >
+                    Male
+                </Button>
+                <Button
+                    onPress={() => setGender('F')}
+                    backgroundColor={gender === 'F' ? 'lightblue' : 'transparent'}
+                >
+                    Female
+                </Button>
+                <Button
+                    onPress={() => setGender('Other')}
+                    backgroundColor={gender === 'Other' ? 'lightblue' : 'transparent'}
+                >
+                    Other
                     </Button>
                 </View>
             </View>
-            <Button onPress={handleRegister}>Register</Button>
+            <Button onPress={() => handleRegister(email, password, name, last_name, gender, setIsLoggedIn, navigation.navigate)}>Register</Button>
         </View>
     );
 }

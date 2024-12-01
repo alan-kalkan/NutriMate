@@ -6,12 +6,15 @@ import { ROUTES } from "../navigation/constants";
 import { TAB_ICONS } from "../navigation/tabIcons";
 import Account from "../screens/Account";
 import Favorites from "../screens/Favorites";
+import Authentication from "../screens/Authentication";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View } from "tamagui";
-
+import { useAuth } from "../context/AuthContext";
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const { isLoggedIn } = useAuth();
+  console.log(isLoggedIn);
   return (
     <Tab.Navigator
       initialRouteName={ROUTES.HOME}
@@ -41,7 +44,11 @@ export default function TabNavigator() {
       <Tab.Screen name={ROUTES.HOME} component={Home} />
       <Tab.Screen name={ROUTES.FAVORITES} component={Favorites} />
       <Tab.Screen name={ROUTES.SEARCH} component={Search} />
-      <Tab.Screen name={ROUTES.ACCOUNT} component={Account} />
+      {isLoggedIn ? (
+        <Tab.Screen name={ROUTES.ACCOUNT} component={Account} />
+      ) : (
+        <Tab.Screen name={ROUTES.AUTHENTIFICATION} component={Authentication} />
+      )}
       <Tab.Screen name={ROUTES.SETTINGS} component={Settings} />
     </Tab.Navigator>
   );

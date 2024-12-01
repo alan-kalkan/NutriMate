@@ -10,10 +10,10 @@ const Stack = createNativeStackNavigator();
 
 export default function AppNav() {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: true }}>
-            <Stack.Screen name="App" component={TabNavigator} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="index" component={Index} />
-            <Stack.Screen name={ROUTES.REGISTER} component={Register} />
+            <Stack.Screen options={{ headerShown: false }} name={ROUTES.REGISTER} component={Register} />
             <Stack.Screen name={ROUTES.HOME} component={Home} />
         </Stack.Navigator>
     );

@@ -14,6 +14,7 @@ export const userService = {
   },
 
   login:  async function loginUser(email: string, password: string) {
+    console.log('loginUser', email, password);
     const response = await fetch(`${USER_ENDPOINTS.login}`, {
       method: 'POST',
       headers: {

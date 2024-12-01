@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
 import getConnection from './config/db';
+import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/api/v1', routes);
+app.use(errorHandler);
 
 const checkDatabaseConnection = async () => {
   try {
