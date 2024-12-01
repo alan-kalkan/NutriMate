@@ -10,6 +10,7 @@ export const ROUTES = {
     PRODUCT_LIST: 'ProductList',
     PRODUCT_DETAILS: 'ProductDetails',
     AUTHENTIFICATION: 'Authentification',
+    ROOT: 'RootLayout',
   } as const;
   
   export type RouteNames = keyof typeof ROUTES;

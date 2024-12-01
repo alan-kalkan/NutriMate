@@ -4,6 +4,7 @@ import { userService } from "../services/api/userService";
 import { ROUTES } from "../navigation/constants";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
@@ -12,13 +13,14 @@ export default function Register() {
     const [name, setName] = useState("");
     const [last_name, setLastName] = useState("");
     const [gender, setGender] = useState("");
+    const { setIsLoggedIn } = useAuth();
 
     const handleRegister = async () => {
         try {
             const response = await userService.register(email, password, name, last_name, gender);
-            console.log(response);
             alert(response.message);
-            navigation.navigate(ROUTES.HOME);
+            setIsLoggedIn(true);
+            navigation.navigate("index");
         } catch (error) {
             console.error("An error occurred during registration", error);
         }
