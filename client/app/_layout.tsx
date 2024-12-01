@@ -1,13 +1,14 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import Index from "./index";
+import { AuthProvider } from "./context/AuthContext";
+import AppNav from "./navigation/AppNav";
 
-const Stack = createNativeStackNavigator();
+
 
 export default function RootLayout() {
+
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="index" component={Index} />
-    </Stack.Navigator>
+    <AuthProvider>
+      <AppNav />
+    </AuthProvider>
   );
 }

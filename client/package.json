@@ -17,9 +17,12 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@fontsource/work-sans": "^5.1.0",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-picker/picker": "^2.10.1",
     "@react-navigation/bottom-tabs": "^7.0.7",
     "@react-navigation/native": "^7.0.0",
     "@react-navigation/native-stack": "^7.1.1",
+    "@react-navigation/stack": "^7.0.14",
     "@reduxjs/toolkit": "^2.3.0",
     "@tamagui/config": "^1.116.14",
     "expo": "^52.0.0",

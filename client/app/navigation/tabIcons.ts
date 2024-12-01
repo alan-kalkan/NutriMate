@@ -7,4 +7,5 @@ export const TAB_ICONS = {
   [ROUTES.FAVORITES]: Heart,
   [ROUTES.ACCOUNT]: User,
   [ROUTES.SEARCH]: Search,
+  [ROUTES.AUTHENTIFICATION]: User,
 } as const;

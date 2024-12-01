@@ -4,7 +4,8 @@ import tamaguiConfig from './config/tamagui.config'
 
 import * as SplashScreen from 'expo-splash-screen';
 import CircularText from "./components/CircularText";
-import TabNavigator from "./components/TabNavigator";
+
+import RootLayout from "./_layout";
 
 declare module "@tamagui/core" {
 }
@@ -28,7 +29,7 @@ export default function Index() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-        <TabNavigator />
+        <RootLayout />
     </TamaguiProvider>
   );
 }
