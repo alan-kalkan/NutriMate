@@ -16,7 +16,7 @@ export default function Authentication() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation<AccountScreenNavigationProp>();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, setUserId } = useAuth();
   
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -47,7 +47,7 @@ export default function Authentication() {
         </>
       ) : (
         <>
-          <Button onPress={() => handleLogin(email, password, setIsLoggedIn)}>Login</Button>
+          <Button onPress={() => handleLogin(email, password, setIsLoggedIn, setUserId)}>Login</Button>
           <Button onPress={() => navigation.navigate(ROUTES.REGISTER as RouteNames)}>Register</Button>
         </>
       )}

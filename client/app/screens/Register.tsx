@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Button, Input } from "tamagui";
 import { ArrowLeft } from "lucide-react-native";
-import { useAuth } from "../context/AuthContext";
 import handleRegister from "../services/utils/handleRegister";
 import { useNavigation } from "@react-navigation/native";
 import { RouteNames } from "../navigation/constants";
@@ -17,7 +16,6 @@ export default function Register() {
     const [name, setName] = useState("");
     const [last_name, setLastName] = useState("");
     const [gender, setGender] = useState("");
-    const { setIsLoggedIn } = useAuth();
     const navigation = useNavigation<AccountScreenNavigationProp>();
 
     return (
@@ -76,7 +74,7 @@ export default function Register() {
                     </Button>
                 </View>
             </View>
-            <Button onPress={() => handleRegister(email, password, name, last_name, gender, setIsLoggedIn, navigation.navigate)}>Register</Button>
+            <Button onPress={() => handleRegister(email, password, name, last_name, gender, navigation.navigate)}>Register</Button>
         </View>
     );
 }

@@ -15,13 +15,15 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
 
   try {
     res.json(product);
-  } catch (error: any) {
+  } catch (error: unknown) {
+    console.log(error);
     res.status(500).json({ error: 'Error adding product: ' + product.name });
   }
 };
 
 // READ
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
+  console.log('getProducts');
     try {
       const products = await prisma.product.findMany({
         include: {
@@ -31,7 +33,9 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
       });
       res.json(products);
     } catch (error: any) {
-        res.status(500).json({ error: 'Products not found' });
+      console.error('Error fetching products:', error.message);
+      console.error('Error details:', error);
+      res.status(500).json({ error: 'Products not found', details: error.message });
       }
   };
 

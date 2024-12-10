@@ -1,5 +1,5 @@
 import express from 'express';
-import { addUser, deleteUser, getUserById, getUsers, loginUser, registerUser, updateUser } from '../../controllers/users/usersController';
+import { addUser, deleteUser, getUserById, getUsers, loginUser, registerUser, updatePassword, updateUser } from '../../controllers/users/usersController';
 import { authenticateToken } from '../../middlewares/JWT';
 
 const router = express.Router();
@@ -12,7 +12,8 @@ const router = express.Router();
    router.post('/addUser', authenticateToken, addUser);
    router.get('/getUsers', authenticateToken, getUsers);
    router.get('/getUserById/:id', authenticateToken, getUserById);
-   router.put('/updateUser', authenticateToken, updateUser);
+   router.put('/updateUser/:id', authenticateToken, updateUser);
+   router.put('/updatePassword/:id', authenticateToken, updatePassword);
    router.delete('/deleteUser', authenticateToken, deleteUser);
 
 

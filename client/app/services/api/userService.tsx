@@ -1,6 +1,6 @@
 import { USER_ENDPOINTS } from "./enpoints";
 import { User } from "../../types/User";
-import { storeToken } from "../utils/token";
+import { getToken, storeToken } from "../utils/token";
 
 
 export const userService = {
@@ -24,10 +24,11 @@ export const userService = {
     });
     console.log(response);
     const data = await response.json();
+    console.log(data);
     if (response.ok) {
       // Stocker le token dans AsyncStorage
       await storeToken(data.token);
-      return { success: true, message: 'Login successful' };
+      return { success: true, message: 'Login successful', data };
     } else {
       return { success: false, message: 'Login failed: ' + data.message };
     }
@@ -50,5 +51,46 @@ export const userService = {
     } else {
       return { success: false, message: 'Register failed: ' + data.message };
     }
+  },
+
+  getUserInformation: async function getUserInformation(id: string) {
+    const token = await getToken(); // Assurez-vous que cette fonction récupère le token correctement
+    const response = await fetch(`${USER_ENDPOINTS.userInformation}/${id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('response', response);
+    const data = await response.json();
+    console.log('data', data);
+    return data;
+  },
+
+  updateUser: async function updateUser(userId: string, name: string, last_name: string, gender: string, password: string) {
+    const token = await getToken();
+    const response = await fetch(`${USER_ENDPOINTS.updateUser}/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, last_name, gender, password }),
+    });
+    return response;
+  },
+
+  updatePassword: async function updatePassword(userId: string, newPassword: string) {
+    const token = await getToken();
+    const response = await fetch(`${USER_ENDPOINTS.updatePassword}/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: userId, newPassword }),
+    });
+    return response;
   }
 };

@@ -3,15 +3,17 @@ import React, { createContext, useState, ReactNode, useContext } from 'react';
 interface AuthContextType {
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  userId: string;
+  setUserId: (userId: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
+  const [userId, setUserId] = useState<string>("");
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
       {children}
     </AuthContext.Provider>
   );
