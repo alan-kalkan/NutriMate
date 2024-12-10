@@ -1,6 +1,6 @@
 import { userService } from "../api/userService";
 
-const handleRegister = async (email: string, password: string, name: string, last_name: string, gender: string, setIsLoggedIn: (isLoggedIn: boolean) => void, navigate: (screen: string) => void) => {
+const handleRegister = async (email: string, password: string, name: string, last_name: string, gender: string, navigate: (screen: string) => void) => {
 
 
     if (!email || !password || !name || !last_name || !gender) {
@@ -22,7 +22,6 @@ const handleRegister = async (email: string, password: string, name: string, las
     try {
         const response = await userService.register(email, password, name, last_name, gender);
         alert(response.message);
-        setIsLoggedIn(true);
         navigate("TabNavigator");
     } catch (error) {
         console.error("An error occurred during registration", error);

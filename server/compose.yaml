@@ -1,0 +1,52 @@
+networks:
+  app-network:
+    driver: bridge
+services:
+  database:
+    container_name: server-database-1
+    image: mysql:8
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app-network
+    env_file: ./.env
+    environment:
+      - LANG=C.UTF-8
+      - MYSQL_ROOT_PASSWORD=new_password
+      - MYSQL_PASSWORD=new_password
+      - MYSQL_DATABASE=nutrimate
+      - MYSQL_INITDB_CHARSET=utf8mb4
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  server:
+    container_name: server
+    build: ./
+    image: node:18
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - app-network
+    env_file: ./.env
+    environment:
+      - DB_HOST=database
+      - MYSQL_ROOT_PASSWORD=new_password
+      - MYSQL_PASSWORD=new_password
+    ports:
+      - "7777:7777"
+    volumes:
+      - ./:/workdir
+      - /workdir/node_modules
+    command: >
+      sh -c "npx prisma generate && npx prisma migrate dev --schema=/workdir/prisma/schema.prisma"
+
+
+
+volumes:
+  db:

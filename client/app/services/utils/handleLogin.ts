@@ -1,6 +1,6 @@
 import { userService } from "../api/userService";
 
-const handleLogin = async (email: string, password: string, setIsLoggedIn: (isLoggedIn: boolean) => void) => {
+const handleLogin = async (email: string, password: string, setIsLoggedIn: (isLoggedIn: boolean) => void, setUserId: (userId: string) => void) => {
     console.log('handleLogin', email, password);
 
 
@@ -24,6 +24,7 @@ const handleLogin = async (email: string, password: string, setIsLoggedIn: (isLo
           console.log('login successful');
           alert("Login successful");
           setIsLoggedIn(true);
+          setUserId(response.data.userId);
         } else {
           console.log('login failed');
           alert(`Login failed: ${response.message}`);

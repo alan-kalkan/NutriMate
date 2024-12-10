@@ -14,7 +14,10 @@ export const REVIEW_ENDPOINTS = {
 };
 
 export const USER_ENDPOINTS = {
+  updatePassword: `${API_BASE_URL}/api/v1/user/updatePassword`,
+  updateUser: `${API_BASE_URL}/api/v1/user/updateUser`,
   userById: `${API_BASE_URL}/api/v1/user/getUserById`,
   login: `${API_BASE_URL}/api/v1/user/login`,
   register: `${API_BASE_URL}/api/v1/user/register`,
+  userInformation: `${API_BASE_URL}/api/v1/user/getUserById`,
 };

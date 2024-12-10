@@ -83,7 +83,8 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string, { expiresIn: '1h' });
 
-    res.json({ message: 'Login successful', token });
+    res.json({ message: 'Login successful', token, userId: user.id });
+    console.log('login', user.id);
   } catch (error: any) {
     console.error('Error logging in:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -103,6 +104,19 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     } catch (error: any) {
         res.status(500).json({ error: `Error updating user: ${error.message}` });
     }
+}
+
+// UPDATE PASSWORD
+export const updatePassword = async (req: Request, res: Response): Promise<void> => {
+    const { id, newPassword } = req.body;
+    console.log('newPassword', newPassword);
+    console.log('id', id);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const user = await prisma.user.update({
+        where: { id: id },
+        data: { password: hashedPassword },
+    });
+    res.json(user);
 }
 
 // DELETE
