@@ -8,10 +8,10 @@ export const addReview = async (req: Request, res: Response): Promise<void> => {
     const { rating, comment, product_id, user_id } = req.body;
     const id = uuidv4();
     const date = new Date();
-
+    console.log('add review req body from backend', req.body);
     try {
         const review = await prisma.review.create({
-            data: { id, rating, comment, created_at: date, product_id, user_id },
+            data: { id, rating: Number(rating), comment, created_at: date, product_id, user_id },
         });
         res.json(review);
     } catch (error: any) {

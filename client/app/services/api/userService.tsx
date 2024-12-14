@@ -14,7 +14,6 @@ export const userService = {
   },
 
   login:  async function loginUser(email: string, password: string) {
-    console.log('loginUser', email, password);
     const response = await fetch(`${USER_ENDPOINTS.login}`, {
       method: 'POST',
       headers: {
@@ -22,11 +21,8 @@ export const userService = {
       },
       body: JSON.stringify({ email, password }),
     });
-    console.log(response);
     const data = await response.json();
-    console.log(data);
     if (response.ok) {
-      // Stocker le token dans AsyncStorage
       await storeToken(data.token);
       return { success: true, message: 'Login successful', data };
     } else {
@@ -45,7 +41,7 @@ export const userService = {
     console.log(response);
     const data = await response.json();
     if (response.ok) {
-      // Stocker le token dans AsyncStorage
+
       await storeToken(data.token);
       return { success: true, message: 'Registered successful' };
     } else {
@@ -54,7 +50,7 @@ export const userService = {
   },
 
   getUserInformation: async function getUserInformation(id: string) {
-    const token = await getToken(); // Assurez-vous que cette fonction récupère le token correctement
+    const token = await getToken();
     const response = await fetch(`${USER_ENDPOINTS.userInformation}/${id}`, {
       method: 'GET',
       headers: {

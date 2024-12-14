@@ -109,8 +109,6 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 // UPDATE PASSWORD
 export const updatePassword = async (req: Request, res: Response): Promise<void> => {
     const { id, newPassword } = req.body;
-    console.log('newPassword', newPassword);
-    console.log('id', id);
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     const user = await prisma.user.update({
         where: { id: id },
