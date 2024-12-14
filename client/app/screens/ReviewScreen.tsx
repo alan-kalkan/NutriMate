@@ -3,6 +3,7 @@ import { View, Text, Input, Button } from "tamagui";
 import { handleAddReview } from '../services/utils/handleAddReview';
 import { Rating } from 'react-native-ratings';
 import { useNavigation } from '@react-navigation/native';
+import { ArrowLeft } from 'lucide-react-native';
 
 export default function ReviewScreen({ route }: { route: { params: { productId: string, userId: string } } }) {
     const { productId, userId } = route.params;
@@ -13,9 +14,10 @@ export default function ReviewScreen({ route }: { route: { params: { productId: 
         product_id: productId,
         user_id: userId,
     });
-    
+
     return (
         <View flex={1} justifyContent="center" alignItems="center" padding={16}>
+            <ArrowLeft color="black" size={24} onPress={() => navigation.goBack()} />
             <Text>Add a Review</Text>
             <View>
                 <Text>Comment</Text>
