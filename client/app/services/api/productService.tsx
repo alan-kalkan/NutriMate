@@ -1,4 +1,4 @@
-import { PRODUCT_ENDPOINTS } from './enpoints';
+import { PRODUCT_ENDPOINTS } from './endpoints';
 import { Product } from '@/app/types/Product';
 
 export const productService = {

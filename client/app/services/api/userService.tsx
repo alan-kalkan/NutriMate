@@ -1,4 +1,4 @@
-import { USER_ENDPOINTS } from "./enpoints";
+import { USER_ENDPOINTS } from "./endpoints";
 import { User } from "../../types/User";
 import { getToken, storeToken } from "../utils/token";
 

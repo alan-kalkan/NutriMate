@@ -5,6 +5,7 @@ import productsRoutes from './products/productsRoutes';
 import brandsRoutes from './brands/brandsRoutes';
 import reviewsRoutes from './reviews/reviewsRoutes';
 import favoritesRoutes from './favorites/favoritesRoutes';
+import searchProductsRoutes from './searchProducts/searchProductsRoutes';
 
 const router = Router();
 
@@ -19,4 +20,7 @@ router.use('/brand', brandsRoutes);
 router.use('/review', reviewsRoutes);
 
 router.use('/favorite', favoritesRoutes);
+
+router.use('/search', searchProductsRoutes);
+
 export default router;

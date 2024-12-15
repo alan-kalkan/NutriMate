@@ -1,5 +1,5 @@
 import { getToken } from '../utils/getToken';
-import { REVIEW_ENDPOINTS } from './enpoints';
+import { REVIEW_ENDPOINTS } from './endpoints';
 import { Review } from '@/app/types/Review';
 
 export const reviewService = {

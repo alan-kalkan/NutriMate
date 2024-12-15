@@ -5,7 +5,12 @@ import { Rating } from 'react-native-ratings';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft } from 'lucide-react-native';
 
-export default function ReviewScreen({ route }: { route: { params: { productId: string, userId: string } } }) {
+interface RouteParams {
+    productId: string;
+    userId: string;
+  }
+
+export default function ReviewScreen({ route }: { route: { params: RouteParams } }) {
     const { productId, userId } = route.params;
     const navigation = useNavigation();
     const [review, setReview] = useState({
