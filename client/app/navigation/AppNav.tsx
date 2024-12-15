@@ -6,6 +6,7 @@ import Index from "../index";
 import Register from "../screens/Register";
 import Home from "../screens/Home";
 import ReviewScreen from "../screens/ReviewScreen";
+import ProductDetails from "../screens/ProductDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,8 @@ export default function AppNav() {
             <Stack.Screen name="index" component={Index} />
             <Stack.Screen options={{ headerShown: false }} name={ROUTES.REGISTER} component={Register} />
             <Stack.Screen name={ROUTES.HOME} component={Home} />
-            <Stack.Screen name={ROUTES.REVIEW_FORM} component={ReviewScreen} />
+            <Stack.Screen name={ROUTES.REVIEW_FORM} component={ReviewScreen} initialParams={{ productId: '', userId: '' }} />
+            <Stack.Screen name={ROUTES.PRODUCT_DETAILS} component={ProductDetails} initialParams={{ productId: '', userId: '' }} />
         </Stack.Navigator>
     );
 }

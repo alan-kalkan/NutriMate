@@ -12,23 +12,22 @@ import { favoriteService } from '../services/api/favoriteService';
 import { useAuth } from '../context/AuthContext';
 import { fetchFavoritesByProductId } from '../services/utils/fetchFavoritesByProductId';
 
-export default function ProductDetails({ route }: { route: any }) {
+export default function ProductDetails({ route }: { route: { params: { productId: string } } }) {
   const navigation = useNavigation();
   const { productId } = route.params;
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const { isLoggedIn, userId } = useAuth();
-  console.log('is favorite', isFavorite);
-  console.log('product details auth', isLoggedIn, userId);
+
   useEffect(() => {
     fetchProductById(productId, setProduct, setIsLoading);
-    fetchFavoritesByProductId(userId, productId).then(setIsFavorite);
+    if (isLoggedIn) {
+      fetchFavoritesByProductId(userId, productId).then(setIsFavorite);
+    }
   }, [productId]);
   
   const toggleFavorite =  async () => {
-    console.log('toggleFavorite', isFavorite);
-    console.log("toggle favorite params", productId, userId)
     if (isFavorite) {
       await favoriteService.deleteFavorite(userId, productId);
     } else {

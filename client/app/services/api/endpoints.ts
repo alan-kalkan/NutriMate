@@ -28,3 +28,7 @@ export const FAVORITE_ENDPOINTS = {
   getFavoritesByProductId: `${API_BASE_URL}/api/v1/favorite/getFavoritesByProductId`,
   deleteFavorite: `${API_BASE_URL}/api/v1/favorite/deleteFavorite`,
 };
+
+export const SEARCH_ENDPOINTS = {
+  searchProducts: `${API_BASE_URL}/api/v1/search`,
+}

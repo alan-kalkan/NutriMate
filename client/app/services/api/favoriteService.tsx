@@ -1,4 +1,4 @@
-import { FAVORITE_ENDPOINTS } from "./enpoints";
+import { FAVORITE_ENDPOINTS } from "./endpoints";
 
 export const favoriteService = {
     async addFavorite(userId: string, productId: string) {
