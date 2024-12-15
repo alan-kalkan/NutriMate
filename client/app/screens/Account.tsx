@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Input, Button } from "tamagui";
 import { useAuth } from "../context/AuthContext";
 import { ArrowLeft } from "lucide-react-native";
-import { fetchUserInformation } from "../services/utils/fetchUserInformation";
 import { handlePasswordChange } from "../services/utils/handlePasswordChange";
+import { fetchUserInformation } from "../services/utils/fetchUserInformation";
 interface UserInformation {
   name: string;
   last_name: string;
@@ -17,10 +17,8 @@ export default function Account() {
   const [userInformation, setUserInformation] = useState<UserInformation | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
-  console.log('userId', userId);
   useEffect(() => {
     fetchUserInformation(userId).then((data) => {
-      console.log('data', data);
       setUserInformation(data);
     });
   }, []);

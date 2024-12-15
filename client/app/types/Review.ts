@@ -1,11 +1,6 @@
 export interface Review {
-  id: string;
-  productId: string;
+  product_id: string;
   rating: number;
   comment: string;
-  created_at: Date;
-  user: {
-    name: string;
-    last_name: string;
-  };
+  user_id: string;
 }

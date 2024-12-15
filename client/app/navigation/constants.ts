@@ -1,6 +1,7 @@
 
 export const ROUTES = {
     INDEX: 'Index',
+    REVIEW_FORM: 'ReviewForm',
     HOME: 'Home',
     SETTINGS: 'Settings',
     FAVORITES: 'Favorites',

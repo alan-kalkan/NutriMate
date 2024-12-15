@@ -25,9 +25,9 @@ export default function Authentication() {
   return (
     <View 
       flex={1}
-    justifyContent="center"
-    alignItems="center"
-    padding={16}
+      justifyContent="center"
+      alignItems="center"
+      padding={16}
     >
       <Input
         placeholder="email"

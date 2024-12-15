@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, YStack, Image, ScrollView } from 'tamagui';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ArrowLeft } from 'lucide-react-native';
 
 import { Product } from '../types/Product';
@@ -17,7 +17,21 @@ export default function ProductDetails({ route }: { route: any }) {
   useEffect(() => {
     fetchProductById(productId, setProduct, setIsLoading);
   }, [productId]);
+      
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        setIsLoading(true);
+        await fetchProductById(productId, setProduct, setIsLoading);
+        setIsLoading(false);
+      };
 
+      fetchData();
+
+      return () => {
+      };
+    }, [productId])
+  );
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
@@ -61,7 +75,7 @@ export default function ProductDetails({ route }: { route: any }) {
         </Text>
       </YStack>
       <ReviewList productId={productId} />
-      <AddReview />
+      <AddReview productId={productId} />
     </View>
     </ScrollView>
   );
