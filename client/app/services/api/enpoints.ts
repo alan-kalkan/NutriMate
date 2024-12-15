@@ -21,3 +21,10 @@ export const USER_ENDPOINTS = {
   register: `${API_BASE_URL}/api/v1/user/register`,
   userInformation: `${API_BASE_URL}/api/v1/user/getUserById`,
 };
+
+export const FAVORITE_ENDPOINTS = {
+  addFavorite: `${API_BASE_URL}/api/v1/favorite/addFavorite`,
+  getFavorites: `${API_BASE_URL}/api/v1/favorite/getFavorites`,
+  getFavoritesByProductId: `${API_BASE_URL}/api/v1/favorite/getFavoritesByProductId`,
+  deleteFavorite: `${API_BASE_URL}/api/v1/favorite/deleteFavorite`,
+};

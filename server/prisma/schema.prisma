@@ -34,6 +34,7 @@ model Product {
   brand_id    String?           @db.VarChar(255)
   categories  ProductCategory[]
   reviews     Review[]        
+  favorites   Favorite[]
 }
 
 model ProductCategory {
@@ -68,4 +69,17 @@ model User {
   password   String    @db.VarChar(255)
   created_at DateTime? @db.Timestamp(0)
   reviews    Review[] 
+  favorites  Favorite[]
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  user_id    String
+  product_id String
+  created_at DateTime @default(now())
+
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, product_id])
 }
