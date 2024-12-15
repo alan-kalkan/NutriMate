@@ -17,7 +17,7 @@ export function ProductList({ navigation }: { navigation: any }) {
         const fetchedProducts = await fetchProducts(setProducts, setError, setIsLoading);
 
         const productsWithRatings = await Promise.all(
-          fetchedProducts.map(async (product: Product) => {
+          fetchedProducts!.map(async (product: Product) => {
             const averageRating = await fetchReviews(product.id);
             return { ...product, averageRating };
           })

@@ -5,6 +5,8 @@ import { Review } from '../types/Review';
 import { userService } from '../services/api/userService';
 import { User } from '../types/User';
 import { Rating } from 'react-native-ratings';
+import { fetchReviews } from '../services/api/reviewService';
+
 interface ReviewListProps {
   productId: string;
 }
@@ -15,20 +17,19 @@ export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchReviews();
-  }, []);
+    const loadReviews = async () => {
+      try {
+        const data = await fetchReviews(productId);
+        setReviews(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const fetchReviews = async () => {
-    try {
-      const data = await reviewService.getReviewsByProduct(productId);
-      setReviews(data);
-    } catch {
-      setError("Failed to fetch reviews");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+    loadReviews();
+  }, [productId]);
   if (isLoading) {
     return (
       <View>

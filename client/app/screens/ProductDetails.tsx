@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, YStack, Image, ScrollView } from 'tamagui';
 import { useNavigation } from '@react-navigation/native';
-import { ArrowLeft } from 'lucide-react-native';
+import { ArrowLeft, PlusCircle } from 'lucide-react-native';
 
 import { Product } from '../types/Product';
 import { ReviewList } from '../components/ReviewList';

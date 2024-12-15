@@ -13,6 +13,7 @@ export const fetchProducts = async (
       setProducts(data);
     } catch (err) {
       setError(err as string);
+      return [];
     } finally {
         setIsLoading(false);
     }
@@ -33,7 +34,7 @@ export const fetchProductById = async (
     }
   };    
 
-  export const fetchProductReviews = async (productId: string): Promise<Review[]> => {
+export const fetchProductReviews = async (productId: string): Promise<Review[]> => {
     try {
       const data = await reviewService.getReviewsByProduct(productId);
       return data;
