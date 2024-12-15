@@ -20,9 +20,6 @@ export function ProductCard({
 
   const navigation = useNavigation();
 
-  const handleProductPress = (productId: string) => {
-    navigation.navigate(ROUTES.PRODUCT_DETAILS, { productId });
-  };
   const averageRating = calculateAverageRating(product.reviews || []);
 
   return (
@@ -32,7 +29,7 @@ export function ProductCard({
         pressStyle={{ scale: 0.970 }}
         animation="bouncy"
         overflow="hidden"
-        onPress={ fromSearch ? () => handleProductPress(product.id) : onPress}
+        onPress={onPress}
         borderRadius="$0"
         padding="$2"
       >

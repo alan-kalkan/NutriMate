@@ -4,14 +4,25 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const searchProducts = async (req: Request, res: Response): Promise<void> => {
-    const { query } = req.query;
-    console.log(query)
+    const { query, brand } = req.query;
+    console.log(query, brand);
     try {
         const products = await prisma.product.findMany({
             where: {
-                name: {
-                    contains: query as string,
-                },
+                AND: [
+                    {
+                        name: {
+                            contains: query as string,
+                        },
+                    },
+                    {
+                        brand: {
+                            name: {
+                                contains: brand as string,
+                            },
+                        },
+                    },
+                ],
             },
             include: {
                 brand: true,
