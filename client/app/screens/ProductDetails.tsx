@@ -41,7 +41,7 @@ export default function ProductDetails({ route }: { route: any }) {
   }
   console.log('productDetails', JSON.stringify(product, null, 2));
   return (
-    <ScrollView>
+    <ScrollView marginHorizontal="$4" paddingTop="$8">
     <YStack flexDirection="row" justifyContent="center" alignItems="center" marginTop={16} marginLeft={16}>
       <ArrowLeft
         width={30}

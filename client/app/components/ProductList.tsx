@@ -43,7 +43,7 @@ export function ProductList({ navigation }: { navigation: any }) {
   };
 
   return (
-    <YStack height={400}>
+    <YStack height={400} paddingTop="$8">
       <ScrollView marginHorizontal="$4" marginTop="$6">
         {products.map((product) => (
           <ProductCard
