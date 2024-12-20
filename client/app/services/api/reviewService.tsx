@@ -14,8 +14,9 @@ export const reviewService = {
   },
 
   addReview: async function addReview(review: Review) {
+    console.log('review', review);
     const token = await getToken();
-
+    
     const response = await fetch(REVIEW_ENDPOINTS.addReview, {
       method: 'POST',
       body: JSON.stringify(review),
@@ -32,5 +33,14 @@ export const reviewService = {
     } else if (response.ok) {
       return { success: true, message: 'Review added successfully' };
     }
-  }
+  },
+
+  getReviewsByUser: async function getReviewsByUser(userId: string): Promise<Review[]> {
+    const response = await fetch(`${REVIEW_ENDPOINTS.reviewsByUser}/${userId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch reviews');
+    }
+    return response.json();
+  },
 };

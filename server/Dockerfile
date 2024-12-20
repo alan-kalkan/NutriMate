@@ -1,6 +1,6 @@
 FROM node:lts-buster-slim
 
-WORKDIR /workdir
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -8,16 +8,16 @@ RUN apt-get update && apt-get install -y \
     make \
     && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-RUN npm rebuild bcrypt --build-from-source
+RUN npx prisma generate
 
-RUN npm install -g nodemon
+RUN npm run build
 
-EXPOSE 7777
+EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD [ "node", "dist/server.js" ]

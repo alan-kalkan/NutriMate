@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Spinner, YStack } from 'tamagui';
 import { reviewService } from '../services/api/reviewService';
 import { Review } from '../types/Review';
-import { userService } from '../services/api/userService';
-import { User } from '../types/User';
 import { Rating } from 'react-native-ratings';
 interface ReviewListProps {
   productId: string;
@@ -12,7 +10,6 @@ interface ReviewListProps {
 export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchReviews();
@@ -23,7 +20,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
       const data = await reviewService.getReviewsByProduct(productId);
       setReviews(data);
     } catch {
-      setError("Failed to fetch reviews");
+      console.log("Failed to fetch reviews");
     } finally {
       setIsLoading(false);
     }

@@ -69,12 +69,12 @@ export function ProductCard({
             {!fromSearch && (
               <Rating
                 readonly={true}
-                tintColor="#FFFF"
-              startingValue={averageRating}
-              imageSize={15}
-              style={{
-                marginTop: 8,
-                marginLeft: 10,
+                tintColor="white"
+                startingValue={averageRating}
+                imageSize={15}
+                style={{
+                  marginTop: 8,
+                  marginLeft: 10,
                 }}
               />
             )}

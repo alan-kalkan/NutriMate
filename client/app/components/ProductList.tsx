@@ -2,10 +2,11 @@ import { YStack, ScrollView } from "tamagui";
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "./ProductCard";
 import { Product } from "../types/Product";
-import { ROUTES } from "../navigation/constants";
+
 import { fetchProducts } from "../services/utils/fetchProducts";
 import { fetchReviews } from "../services/utils/fetchReviews";
 import { NavigationProp } from "@react-navigation/native";
+import { handleProductPress } from "../services/utils/handleProductPress";
 
 type RootStackParamList = {
   ProductDetails: { productId: string };
@@ -34,10 +35,7 @@ export function ProductList({ navigation }: { navigation: NavigationProp<RootSta
   }, []);
 
 
-  const handleProductPress = (productId: string) => {
-    navigation.navigate(ROUTES.PRODUCT_DETAILS, { productId });
-  };
-
+  
   return (
     <YStack height={400} paddingTop="$8">
       <ScrollView marginHorizontal="$4" marginTop="$6">
@@ -45,7 +43,7 @@ export function ProductList({ navigation }: { navigation: NavigationProp<RootSta
           <ProductCard
             key={product.id}
             product={product}
-            onPress={() => handleProductPress(product.id)}
+            onPress={() => handleProductPress(navigation, product.id)}
             fromSearch={false}
           />
         ))}

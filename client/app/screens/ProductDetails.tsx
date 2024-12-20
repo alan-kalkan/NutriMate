@@ -41,14 +41,17 @@ export default function ProductDetails({ route }: { route: { params: { productId
       const fetchData = async () => {
         setIsLoading(true);
         await fetchProductById(productId, setProduct, setIsLoading);
+        if (isLoggedIn) {
+          const favoriteStatus = await fetchFavoritesByProductId(userId, productId);
+          setIsFavorite(favoriteStatus);
+        }
         setIsLoading(false);
       };
 
       fetchData();
 
-      return () => {
-      };
-    }, [productId])
+      return () => {};
+    }, [productId, isLoggedIn, userId])
   );
   if (isLoading) {
     return <Text>Loading...</Text>;
