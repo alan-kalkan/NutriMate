@@ -6,6 +6,7 @@ export const PRODUCT_ENDPOINTS = {
   productsByName: `${API_BASE_URL}/api/v1/product/getProductByName`,
   brandProducts: `${API_BASE_URL}/api/v1/brand/getProducts`,
   brandById: `${API_BASE_URL}/api/v1/brand/getBrand`,
+  favorites: `${API_BASE_URL}/api/v1/product/getFavorites`,
 };
 
 export const REVIEW_ENDPOINTS = {

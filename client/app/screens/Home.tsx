@@ -4,7 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProductDetails from "./ProductDetails";
 import { ROUTES } from "../navigation/constants";
 
-const HomeStack = createNativeStackNavigator();
+type HomeStackParamList = {
+  [ROUTES.PRODUCT_LIST]: undefined;
+  [ROUTES.PRODUCT_DETAILS]: { productId: string };
+};
+
+const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 
 export default function Home() {
 

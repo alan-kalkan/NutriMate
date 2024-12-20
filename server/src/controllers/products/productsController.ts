@@ -32,11 +32,10 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
         }
       });
       res.json(products);
-    } catch (error: any) {
-      console.error('Error fetching products:', error.message);
-      console.error('Error details:', error);
-      res.status(500).json({ error: 'Products not found', details: error.message });
-      }
+    } catch (error: unknown) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ error: 'Products not found' });
+    }
   };
 
 export const getProductById = async (req: Request, res: Response): Promise<void> => {
@@ -60,10 +59,27 @@ export const getProductById = async (req: Request, res: Response): Promise<void>
       }
 
       res.json(product);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      console.error('Error retrieving product:', error);
       res.status(500).json({ error: 'Error retrieving product for id: ' + id });
     }
 };
+
+export const getFavorites = async (req: Request, res: Response): Promise<void> => {
+    const { userId } = req.params;
+    try {
+      const favorites = await prisma.favorite.findMany({
+        where: { user_id: userId },
+        include: {
+          product: true,
+        }
+      });
+      res.json(favorites);
+    } catch (error: unknown) {
+      console.error('Error retrieving favorites:', error);
+      res.status(500).json({ error: 'Error retrieving favorites for user: ' + userId });
+    }
+  };
 
 export const getProductByName = async (req: Request, res: Response): Promise<void> => {
     const { productName } = req.params;
@@ -82,7 +98,8 @@ export const getProductByName = async (req: Request, res: Response): Promise<voi
       }
       
       res.json(product);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      console.error('Error searching product:', error);
       res.status(500).json({ error: `Error searching for product: ${productName}` });
     }
   };
@@ -97,8 +114,9 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
 
     try {
         res.json(product);
-    } catch (error: any) {
-        res.status(500).json({ error: 'Error updating product' + product.name })
+    } catch (error: unknown) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ error: 'Error updating product' + product.name });
     }
 }
 
@@ -112,7 +130,8 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
 
     try {
         res.json(product);
-    } catch (error: any) {
-        res.status(500).json({ error: 'Error deleting product' + product.id })
+    } catch (error: unknown) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ error: 'Error deleting product' + product.id });
     }
 }

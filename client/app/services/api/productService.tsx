@@ -1,3 +1,4 @@
+import { Favorite } from '@/app/types/Favorites';
 import { PRODUCT_ENDPOINTS } from './endpoints';
 import { Product } from '@/app/types/Product';
 
@@ -34,6 +35,14 @@ export const productService = {
 
     if (!response.ok) {
       throw new Error('Failed to fetch brand products');
+    }
+    return response.json();
+  },
+
+  async getFavorites(userId: string): Promise<Favorite[]> {
+    const response = await fetch(`${PRODUCT_ENDPOINTS.favorites}/${userId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch favorites for user: ' + userId);
     }
     return response.json();
   }
