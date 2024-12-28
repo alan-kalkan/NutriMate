@@ -9,10 +9,9 @@ import { ScrollView } from "react-native";
 import { handleProductPress } from "../services/utils/handleProductPress";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-// Define RootParamList if not already defined
+
 type RootParamList = {
-  Favorites: undefined; // Add your route names and their params here
-  // Other routes...
+  Favorites: undefined;
 };
 
 export default function Favorites() {
