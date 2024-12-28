@@ -7,11 +7,11 @@ services:
       interval: 10s
       retries: 5
     restart: always
-    env_file: ./.env
+    env_file: .env
     environment:
       - LANG=C.UTF-8
-      - MYSQL_ROOT_PASSWORD=new_password
-      - MYSQL_PASSWORD=new_password
+      - MYSQL_ROOT_PASSWORD=alankalkan0
+      - MYSQL_PASSWORD=alankalkan0
       - MYSQL_DATABASE=nutrimate
       - MYSQL_INITDB_CHARSET=utf8mb4
     ports:
@@ -28,19 +28,19 @@ services:
     depends_on:
       database:
         condition: service_healthy
-    env_file: ./.env
+    env_file: .env
     environment:
       - DB_HOST=database
-      - MYSQL_ROOT_PASSWORD=new_password
-      - MYSQL_PASSWORD=new_password
-      - DATABASE_URL=mysql://root:new_password@172.18.0.2:3306/nutrimate
+      - MYSQL_ROOT_PASSWORD=alankalkan0
+      - MYSQL_PASSWORD=alankalkan0
+      - DATABASE_URL=mysql://root:alankalkan0@database:3306/nutrimate
     ports:
       - "3000:3000"
     volumes:
       - .:/app
       - /app/node_modules
     command: >
-      sh -c "npx prisma generate && npx prisma migrate dev --schema=/app/prisma/schema.prisma"
+      sh -c "npx prisma generate && npx prisma migrate dev --schema=/app/prisma/schema.prisma && npm run dev"
     networks:
       - app-network
 networks:

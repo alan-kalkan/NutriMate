@@ -1,8 +1,10 @@
-FROM node:lts-buster-slim
+FROM node:18
 
 # Définir le répertoire de travail
 WORKDIR /app
 
+COPY package*.json ./
+RUN npm install
 # Installer les dépendances nécessaires pour Prisma et bcrypt
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -11,11 +13,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier les fichiers nécessaires pour installer les dépendances
-COPY package*.json ./
+
 COPY prisma ./prisma/
 
 # Installer les dépendances de l'application
-RUN npm install
+
 
 # Générer le client Prisma avec le chemin explicite du schéma
 RUN npx prisma generate --schema=./prisma/schema.prisma
@@ -31,4 +33,4 @@ EXPOSE 3000
 
 
 # Ajouter une commande pour démarrer explicitement le serveur
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "start"]
