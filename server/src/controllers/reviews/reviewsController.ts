@@ -14,7 +14,7 @@ export const addReview = async (req: Request, res: Response): Promise<void> => {
             data: { id, rating: Number(rating), comment, created_at: date, product_id, user_id },
         });
         res.json(review);
-    } catch (error: any) {
+    } catch {
         res.status(500).json({ error: 'Error adding review' });
     }
 }
@@ -36,7 +36,17 @@ export const getReviewsByProduct = async (req: Request, res: Response): Promise<
             },
         });
         res.json(reviews);
-    } catch (error: any) {
+    } catch {
+        res.status(500).json({ error: 'Error fetching reviews' });
+    }
+}
+
+export const getReviewsByUser = async (req: Request, res: Response): Promise<void> => {
+    const { user_id } = req.params;
+    try {
+        const reviews = await prisma.review.findMany({ where: { user_id } });
+        res.json(reviews);
+    } catch {
         res.status(500).json({ error: 'Error fetching reviews' });
     }
 }
@@ -52,7 +62,7 @@ export const updateReview = async (req: Request, res: Response): Promise<void> =
             data: { rating, comment },
         });
         res.json(review);
-    } catch (error: any) {
+    } catch {
         res.status(500).json({ error: 'Error updating review' });
     }
 }
@@ -64,7 +74,7 @@ export const deleteReview = async (req: Request, res: Response): Promise<void> =
     try {
         await prisma.review.delete({ where: { id } });
         res.json({ message: 'Review deleted' });
-    } catch (error: any) {
+    } catch {
         res.status(500).json({ error: 'Error deleting review' });
     }
 }

@@ -3,8 +3,7 @@ import React from "react";
 import { Rating } from "react-native-ratings";
 import { Product } from "../types/Product";
 import { calculateAverageRating } from "../services/utils/reviewAverage";
-import { useNavigation } from "@react-navigation/native";
-import { ROUTES } from "../navigation/constants";
+
 
 interface ProductCardProps {
   product: Product;
@@ -18,7 +17,6 @@ export function ProductCard({
   fromSearch,
 }: ProductCardProps) {
 
-  const navigation = useNavigation();
 
   const averageRating = calculateAverageRating(product.reviews || []);
 
@@ -36,10 +34,10 @@ export function ProductCard({
         <XStack padding="$4" alignItems="center" justifyContent="space-between" backgroundColor="white" width={350}>
           <YStack flex={fromSearch ? 0 : 1}>
             <Text fontSize="$3" color="#666" fontFamily="$archivo" fontWeight="bold">
-              {product.brand.name}
+              {product?.brand?.name}
             </Text>
             <Text fontSize="$4" fontFamily="$workSans" fontWeight="bold" color="#333">
-              {product.name}
+              {product?.name}
             </Text>
             <Text fontSize="$3" color="#666" fontFamily="$workSans">
               {product.price} €
@@ -71,12 +69,12 @@ export function ProductCard({
             {!fromSearch && (
               <Rating
                 readonly={true}
-                tintColor="#FFFF"
-              startingValue={averageRating}
-              imageSize={15}
-              style={{
-                marginTop: 8,
-                marginLeft: 10,
+                tintColor="white"
+                startingValue={averageRating}
+                imageSize={15}
+                style={{
+                  marginTop: 8,
+                  marginLeft: 10,
                 }}
               />
             )}

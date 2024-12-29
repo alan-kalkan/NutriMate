@@ -6,11 +6,13 @@ export const PRODUCT_ENDPOINTS = {
   productsByName: `${API_BASE_URL}/api/v1/product/getProductByName`,
   brandProducts: `${API_BASE_URL}/api/v1/brand/getProducts`,
   brandById: `${API_BASE_URL}/api/v1/brand/getBrand`,
+  favorites: `${API_BASE_URL}/api/v1/product/getFavorites`,
 };
 
 export const REVIEW_ENDPOINTS = {
   reviewsByProduct: `${API_BASE_URL}/api/v1/review/getReviewsByProduct`,
   addReview: `${API_BASE_URL}/api/v1/review/addReview`,
+  reviewsByUser: `${API_BASE_URL}/api/v1/review/getReviewsByUser`,
 };
 
 export const USER_ENDPOINTS = {

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@prisma/client": "^6.0.1",
+    "@prisma/client": "^6.1.0",
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-picker/picker": "^2.10.1",
     "bcrypt": "^5.1.1",
@@ -10,7 +10,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.0",
     "mysql2": "^3.11.4",
     "nodemon": "^3.1.7",
     "uuid": "^11.0.2"
@@ -23,17 +22,22 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.9.0",
     "eslint": "^9.14.0",
-    "prisma": "^6.0.1",
+    "prisma": "^6.1.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.13.0"
   },
   "scripts": {
-    "start": "nodemon src/server.ts",
-    "dev": "nodemon src/server.ts"
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "dev": "nodemon src/server.ts",
+    "start:prod": "nodemon dist/server.js"
   },
   "prisma": {
     "schema": "./prisma/schema.prisma"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

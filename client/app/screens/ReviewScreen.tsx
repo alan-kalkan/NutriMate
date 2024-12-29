@@ -24,9 +24,9 @@ export default function ReviewScreen({ route }: { route: { params: RouteParams }
         <View flex={1} justifyContent="center" alignItems="center" padding={16}>
             <ArrowLeft color="black" size={24} onPress={() => navigation.goBack()} />
             <Text>Add a Review</Text>
-            <View>
-                <Text>Comment</Text>
-                <Input placeholder="Review" value={review.comment} onChangeText={(text) => setReview({ ...review, comment: text })} />
+            <Text>Comment</Text>
+            <View width="100%">
+                <Input  multiline={true} placeholder="Review" value={review.comment} onChangeText={(text) => setReview({ ...review, comment: text })} />
             </View>
             <View>
                 <Text>Rating</Text>

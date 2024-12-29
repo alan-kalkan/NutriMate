@@ -16,7 +16,6 @@ app.use('/api/v1', routes);
 
 app.use(errorHandler);
 
-
 const checkDatabaseConnection = async () => {
   console.log('Database Credentials:');
   console.log(`Host: ${process.env.DB_HOST}`);

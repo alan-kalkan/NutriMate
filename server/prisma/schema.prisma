@@ -49,7 +49,7 @@ model ProductCategory {
 model Review {
   id         String  @id @default(uuid())
   rating     Int
-  comment    String
+  comment    String? @db.Text
   created_at DateTime @default(now())
   product_id String
   user_id    String

@@ -2,19 +2,18 @@ import { Product } from "@/app/types/Product";
 import { productService } from "../api/productService";
 import { reviewService } from "../api/reviewService";
 import { Review } from "@/app/types/Review";
+import { Favorite } from "@/app/types/Favorites";
+import { PRODUCT_ENDPOINTS } from "../api/endpoints";
 
 export const fetchProducts = async (
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>,
-    setError: React.Dispatch<React.SetStateAction<string | null>>,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+): Promise<Product[]> => {
     try {
       const data = await productService.getProducts();
       setProducts(data);
-    } catch (err) {
-      setError(err as string);
-    } finally {
-        setIsLoading(false);
+      return data;
+    } catch {
+      throw new Error("Failed to fetch products");
     }
 };
 
@@ -31,9 +30,9 @@ export const fetchProductById = async (
     } finally {
       setIsLoading(false);
     }
-  };    
+};    
 
-  export const fetchProductReviews = async (productId: string): Promise<Review[]> => {
+export const fetchProductReviews = async (productId: string): Promise<Review[]> => {
     try {
       const data = await reviewService.getReviewsByProduct(productId);
       return data;
@@ -41,3 +40,9 @@ export const fetchProductById = async (
       throw new Error("Failed to fetch reviews");
     }
   };
+
+export const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
+  const response = await fetch(`${PRODUCT_ENDPOINTS.favorites}/${userId}`);
+  const data = await response.json();
+  return data;
+};

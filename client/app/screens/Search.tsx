@@ -5,12 +5,17 @@ import { Product } from "../types/Product";
 import { ScrollView } from "react-native";
 import { ProductCard } from "../components/ProductCard";
 import { ROUTES } from "../navigation/constants";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+
+type RootStackParamList = {
+  ProductDetails: { productId: string };
+};
+
 export default function Search() {
   const [query, setQuery] = useState("");
   const [brand, setBrand] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isBrandFilterActive, setIsBrandFilterActive] = useState(false);
 
   const toggleBrandFilter = () => {
