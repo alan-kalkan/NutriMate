@@ -21,26 +21,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          
-      - name: Navigate to client folder
-        run: cd client
-        
+
       # 3. Install dependencies
       - name: Install dependencies
+        working-directory: client
         run: npm install
 
       # 4. Run tests
       - name: Run tests
+        working-directory: client
         run: npm test
 
       # 5. Login to EAS
       - name: Login to EAS
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        working-directory: client
         run: eas login --token $EXPO_TOKEN
 
       # 6. Build APK for Android
       - name: Build Android APK
+        working-directory: client
         run: eas build --platform android --profile production --non-interactive
 
       # 7. Upload artifact
@@ -48,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: android-apk
-          path: ./builds/*.apk
+          path: client/build/*.apk
