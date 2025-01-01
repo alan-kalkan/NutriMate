@@ -25,6 +25,17 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "79d5985c-9ed9-43a0-a81d-1d0bd67c7da0"
+      }
+    },
+    "android": {
+      "package": "com.anonymous.client"
     }
   }
 }
