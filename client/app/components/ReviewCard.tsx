@@ -23,7 +23,7 @@ export const ReviewCard = ({ comment, rating, created_at, productId, id, onDelet
         <View backgroundColor="white" padding={10} borderRadius={10}>
             <View flexDirection="row" justifyContent="space-between" alignItems="center">
                 <TouchableOpacity onPress={onPress}>
-                <View flex={1}>
+                <View>
                     <View flexDirection="row" alignItems="center">
                         <Text paddingRight={10} fontSize={16} fontWeight="bold">{product?.name}</Text>
                         <Rating
