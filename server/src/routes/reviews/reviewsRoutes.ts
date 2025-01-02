@@ -11,6 +11,6 @@ router.get('/getReviewsByUser/:user_id', getReviewsByUser);
 
 router.put('/updateReview/:id', updateReview);
 
-router.delete('/deleteReview/:id', deleteReview);
+router.delete('/deleteReviewById/:id', deleteReview);
     
 export default router;

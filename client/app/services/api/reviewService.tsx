@@ -43,4 +43,18 @@ export const reviewService = {
     }
     return response.json();
   },
+
+  deleteReviewById: async function deleteReviewById(reviewId: string) {
+    const token = await getToken();
+    const response = await fetch(`${REVIEW_ENDPOINTS.deleteReviewById}/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete review');
+    }
+    return response.json();
+  }
 };
