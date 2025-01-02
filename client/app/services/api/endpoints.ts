@@ -13,6 +13,7 @@ export const REVIEW_ENDPOINTS = {
   reviewsByProduct: `${API_BASE_URL}/api/v1/review/getReviewsByProduct`,
   addReview: `${API_BASE_URL}/api/v1/review/addReview`,
   reviewsByUser: `${API_BASE_URL}/api/v1/review/getReviewsByUser`,
+  deleteReviewById: `${API_BASE_URL}/api/v1/review/deleteReviewById`,
 };
 
 export const USER_ENDPOINTS = {
