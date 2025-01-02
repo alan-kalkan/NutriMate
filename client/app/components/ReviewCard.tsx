@@ -20,7 +20,7 @@ export const ReviewCard = ({ comment, rating, created_at, productId, id, onDelet
     }, [productId]);
 
     return (
-        <View backgroundColor="white" padding={10} borderRadius={10}>
+        <View backgroundColor="white" padding={6} borderColor="black" borderWidth={1} marginBottom={5}>
             <View flexDirection="row" justifyContent="space-between" alignItems="center">
                 <TouchableOpacity onPress={onPress}>
                 <View>
