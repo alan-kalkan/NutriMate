@@ -25,7 +25,6 @@ export default function Home() {
       <HomeStack.Screen name={ROUTES.PRODUCT_LIST} component={ProductList} />
         <HomeStack.Screen name={ROUTES.PRODUCT_DETAILS} component={ProductDetails} />
       </HomeStack.Navigator>
-      <ReviewCard />
     </>
   );
 }
