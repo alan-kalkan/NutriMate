@@ -23,7 +23,6 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
 
 // READ
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
-  console.log('getProducts');
     try {
       const products = await prisma.product.findMany({
         include: {
