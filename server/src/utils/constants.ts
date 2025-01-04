@@ -55,5 +55,6 @@ export const mockUsers = [
     name: 'User 1',
     last_name: 'Last Name 1',
     gender: 'male',
+    role: 'user',
   },
 ];
