@@ -1,0 +1,9 @@
+{
+    "name": "nutrimate-prod",
+    "version": "1.0.0",
+    "cwd": "server",
+    "scripts": {
+      "build": "cd server && npm install && npm run build",
+      "start": "cd server && npm start"
+    }
+  }
