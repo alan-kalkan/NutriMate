@@ -12,6 +12,8 @@ export const ROUTES = {
     PRODUCT_DETAILS: 'ProductDetails',
     AUTHENTIFICATION: 'Authentification',
     ROOT: 'RootLayout',
+    ADMIN_REVIEW_SCREEN: 'AdminReviewScreen',
+    REVIEW_PRODUCTS: 'ReviewProducts',
   } as const;
   
   export type RouteNames = keyof typeof ROUTES;
