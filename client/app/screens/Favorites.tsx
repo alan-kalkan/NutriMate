@@ -25,7 +25,6 @@ export default function Favorites() {
     }, [userId])
   );
 
-  console.log('fav', JSON.stringify(favorites, null, 2));
   return (
     <>
       {isLoggedIn ? (

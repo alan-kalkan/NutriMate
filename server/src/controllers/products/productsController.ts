@@ -5,19 +5,43 @@ const prisma = new PrismaClient();
 
 // CREATE
 export const addProduct = async (req: Request, res: Response): Promise<void> => {
-
-    const { name, description, price, brand_id, image_url, treatmentDuration } = req.body;
+  try {
+    const { name, description, price, brand, image_url, treatmentDuration } = req.body;
     const id = uuidv4();
     const date = new Date();
-    const product = await prisma.product.create({
-      data: { id, name, description, price, brand_id, image_url, treatmentDuration, created_at: date },
+
+    // Chercher ou créer la marque
+    let brandRecord = await prisma.brand.findFirst({
+      where: { name: brand.name }
     });
 
-  try {
+    if (!brandRecord) {
+      brandRecord = await prisma.brand.create({
+        data: {
+          id: uuidv4(),
+          name: brand.name,
+        }
+      });
+    }
+
+    // Créer le produit avec l'ID de la marque
+    const product = await prisma.product.create({
+      data: {
+        id,
+        name,
+        description,
+        price,
+        brand_id: brandRecord.id,
+        image_url,
+        treatmentDuration,
+        created_at: date
+      }
+    });
+
     res.json(product);
   } catch (error: unknown) {
-    console.log(error);
-    res.status(500).json({ error: 'Error adding product: ' + product.name });
+    console.error(error);
+    res.status(500).json({ error: 'Error adding product' });
   }
 };
 

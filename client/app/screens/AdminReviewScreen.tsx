@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'tamagui';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { ArrowBigLeft, Cross, X } from 'lucide-react-native';
+import { ArrowBigLeft, X } from 'lucide-react-native';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { fetchAllReviews } from '../services/utils/fetchReviews';
 import { Review } from '../types/Review';
@@ -53,7 +53,7 @@ export default function AdminReviewScreen() {
                             marginVertical={5}
                         >
                             <View flex={1} marginRight={10}>
-                                <Text fontSize={14} numberOfLines={2}>"{item.comment}"</Text>
+                                <Text fontSize={14} numberOfLines={2}>&quot;{item.comment}&quot;</Text>
                                 <Text fontSize={14}> rated: {item.rating}, from: {item.user_email}</Text>
                             </View>
                             <TouchableOpacity onPress={async () => {

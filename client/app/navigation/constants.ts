@@ -14,6 +14,7 @@ export const ROUTES = {
     ROOT: 'RootLayout',
     ADMIN_REVIEW_SCREEN: 'AdminReviewScreen',
     REVIEW_PRODUCTS: 'ReviewProducts',
+    PRODUCT_FORM: 'ProductForm',
   } as const;
   
   export type RouteNames = keyof typeof ROUTES;

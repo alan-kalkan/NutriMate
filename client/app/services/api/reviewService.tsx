@@ -22,7 +22,6 @@ export const reviewService = {
   },
 
   addReview: async function addReview(review: Review) {
-    console.log('review', review);
     const token = await getToken();
     
     const response = await fetch(REVIEW_ENDPOINTS.addReview, {

@@ -44,7 +44,6 @@ export default function Search() {
 
     if (query.trim() !== "" || brand.trim() !== "") {
       searchService.searchProducts(searchCriteria).then((products) => {
-        console.log(JSON.stringify(products, null, 2));
         setProducts(products);
       });
     } else {

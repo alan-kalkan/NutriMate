@@ -121,9 +121,9 @@ export const updatePassword = async (req: Request, res: Response): Promise<void>
 
 // DELETE
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
-    const { email } = req.body;
+    const { id } = req.params;
     const user = await prisma.user.delete({
-        where: { email }
+        where: { id }
     })
     try {
         res.json(user);

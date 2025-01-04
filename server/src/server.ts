@@ -17,13 +17,6 @@ app.use('/api/v1', routes);
 app.use(errorHandler);
 
 const checkDatabaseConnection = async () => {
-  console.log('Database Credentials:');
-  console.log(`Host: ${process.env.DB_HOST}`);
-  console.log(`User: ${process.env.DB_USER}`);
-  console.log(`Password: ${process.env.DB_PASSWORD}`);
-  console.log(`Database Name: ${process.env.DB_NAME}`);
-  console.log(`Database URL: ${process.env.DATABASE_URL}`);
-  console.log(`Port: ${process.env.DB_PORT}`);
   try {
     await getConnection();
     console.log('Connected to MySQL database');

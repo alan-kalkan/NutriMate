@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
+
   return (
     <Tab.Navigator
       initialRouteName={ROUTES.HOME}

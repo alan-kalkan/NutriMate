@@ -15,6 +15,6 @@ router.get('/getProductByName/:productName', getProductByName);
 
 router.put('/updateProduct', updateProduct)
 
-router.delete('/deleteProduct', deleteProduct)
+router.delete('/deleteProduct/:id', deleteProduct)
 
 export default router;
