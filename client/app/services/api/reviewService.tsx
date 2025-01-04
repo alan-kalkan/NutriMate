@@ -13,6 +13,14 @@ export const reviewService = {
     return response.json();
   },
 
+  getAllReviews: async function getAllReviews(): Promise<Review[]> {
+    const response = await fetch(REVIEW_ENDPOINTS.getAllReviews);
+    if (!response.ok) {
+      throw new Error('Failed to fetch reviews');
+    }
+    return response.json();
+  },
+
   addReview: async function addReview(review: Review) {
     console.log('review', review);
     const token = await getToken();

@@ -20,3 +20,12 @@ export const fetchReviewsByUser = async (userId: string): Promise<Review[]> => {
     throw new Error("Failed to fetch reviews");
   }
 };
+
+export const fetchAllReviews = async (): Promise<Review[]> => {
+  try {
+    const reviews = await reviewService.getAllReviews();
+    return reviews;
+  } catch {
+    throw new Error("Failed to fetch reviews");
+  }
+};

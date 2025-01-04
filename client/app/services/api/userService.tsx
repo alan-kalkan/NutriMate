@@ -6,7 +6,6 @@ import { getToken, storeToken } from "../utils/token";
 export const userService = {
   getUserById: async (id: string): Promise<User> => {
     const response = await fetch(`${USER_ENDPOINTS.userById}/${id}`);
-    
     if (!response.ok) {
       throw new Error('Failed to fetch user');
     }
@@ -38,7 +37,6 @@ export const userService = {
       },
       body: JSON.stringify({ email, password, name, last_name, gender }),
     });
-    console.log(response);
     const data = await response.json();
     if (response.ok) {
 
@@ -58,9 +56,7 @@ export const userService = {
         'Content-Type': 'application/json',
       },
     });
-    console.log('response', response);
     const data = await response.json();
-    console.log('data', data);
     return data;
   },
 

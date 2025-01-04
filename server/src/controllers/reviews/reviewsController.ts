@@ -41,6 +41,15 @@ export const getReviewsByProduct = async (req: Request, res: Response): Promise<
     }
 }
 
+export const getAllReviews = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const reviews = await prisma.review.findMany();
+        res.json(reviews);
+    } catch {
+        res.status(500).json({ error: 'Error fetching reviews' });
+    }
+}
+
 export const getReviewsByUser = async (req: Request, res: Response): Promise<void> => {
     const { user_id } = req.params;
     try {

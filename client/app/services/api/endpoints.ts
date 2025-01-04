@@ -14,6 +14,7 @@ export const REVIEW_ENDPOINTS = {
   addReview: `${API_BASE_URL}/api/v1/review/addReview`,
   reviewsByUser: `${API_BASE_URL}/api/v1/review/getReviewsByUser`,
   deleteReviewById: `${API_BASE_URL}/api/v1/review/deleteReviewById`,
+  getAllReviews: `${API_BASE_URL}/api/v1/review/getAllReviews`,
 };
 
 export const USER_ENDPOINTS = {
