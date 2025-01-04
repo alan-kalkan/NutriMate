@@ -32,21 +32,27 @@ jobs:
         working-directory: server
         run: npm test
 
-      # 5. Login to EAS
-      - name: Login to EAS
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        working-directory: client
-        run: eas login --token $EXPO_TOKEN
-
-      # 6. Build APK for Android
-      - name: Build Android APK
-        working-directory: client
-        run: eas build --platform android --profile production --non-interactive
-
-      # 7. Upload artifact
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+      # Add caching for faster builds
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
-          name: android-apk
-          path: client/build/*.apk
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Add linting
+      - name: Run linting
+        working-directory: server
+        run: npm run lint
+
+      # Add type checking (if using TypeScript)
+      - name: Type check
+        working-directory: server
+        run: npm run type-check
+
+      # Optional: Add security audit
+      - name: Security audit
+        working-directory: server
+        run: npm audit
+        
