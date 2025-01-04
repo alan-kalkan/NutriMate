@@ -57,11 +57,12 @@ model Review {
   product    Product @relation(fields: [product_id], references: [id], map: "Review_Product_fkey")
   user       User    @relation(fields: [user_id], references: [id], map: "Review_User_fkey")
 
-  @@unique([user_id, product_id]) // Enforce unique reviews per user per product
+  @@unique([user_id, product_id])
 }
 
 model User {
   id         String    @id @unique(map: "id_UNIQUE") @db.VarChar(255)
+  role       String    @db.VarChar(255) @default("user")
   name       String    @db.VarChar(255)
   last_name  String    @db.VarChar(255)
   gender     String    @db.VarChar(255) @default("null")

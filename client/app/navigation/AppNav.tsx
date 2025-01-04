@@ -4,10 +4,13 @@ import { ROUTES } from "./constants";
 import TabNavigator from "../components/TabNavigator";
 import Index from "../index";
 import Register from "../screens/Register";
-import Home from "../screens/Home";
+import AdminReviewScreen from "../screens/AdminReviewScreen";
 import ReviewScreen from "../screens/ReviewScreen";
 import ProductDetails from "../screens/ProductDetails";
 import { ProductList } from "../components/ProductList";
+import ReviewProducts from "../screens/ReviewProducts";
+import ProductSubmit from "../components/ProductSubmit";
+import ProductForm from "../screens/ProductForm";
 
 type HomeStackParamList = {
   [ROUTES.PRODUCT_LIST]: undefined;
@@ -41,6 +44,9 @@ export default function AppNav() {
             <Stack.Screen name={ROUTES.HOME} component={HomeNavigator} />
             <Stack.Screen name={ROUTES.REVIEW_FORM} component={ReviewScreen} initialParams={{ productId: '', userId: '' }} />
             <Stack.Screen name={ROUTES.PRODUCT_DETAILS} component={ProductDetails} initialParams={{ productId: '', userId: '' }} />
+            <Stack.Screen name={ROUTES.ADMIN_REVIEW_SCREEN} component={AdminReviewScreen} />
+            <Stack.Screen name={ROUTES.REVIEW_PRODUCTS} component={ReviewProducts} />
+            <Stack.Screen name={ROUTES.PRODUCT_FORM} component={ProductForm} />
         </Stack.Navigator>
     );
 }

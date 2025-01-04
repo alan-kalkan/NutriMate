@@ -7,6 +7,8 @@ export const PRODUCT_ENDPOINTS = {
   brandProducts: `${API_BASE_URL}/api/v1/brand/getProducts`,
   brandById: `${API_BASE_URL}/api/v1/brand/getBrand`,
   favorites: `${API_BASE_URL}/api/v1/product/getFavorites`,
+  submitProduct: `${API_BASE_URL}/api/v1/product/addProduct`,
+  deleteProduct: `${API_BASE_URL}/api/v1/product/deleteProduct`,
 };
 
 export const REVIEW_ENDPOINTS = {
@@ -14,6 +16,7 @@ export const REVIEW_ENDPOINTS = {
   addReview: `${API_BASE_URL}/api/v1/review/addReview`,
   reviewsByUser: `${API_BASE_URL}/api/v1/review/getReviewsByUser`,
   deleteReviewById: `${API_BASE_URL}/api/v1/review/deleteReviewById`,
+  getAllReviews: `${API_BASE_URL}/api/v1/review/getAllReviews`,
 };
 
 export const USER_ENDPOINTS = {
@@ -23,6 +26,7 @@ export const USER_ENDPOINTS = {
   login: `${API_BASE_URL}/api/v1/user/login`,
   register: `${API_BASE_URL}/api/v1/user/register`,
   userInformation: `${API_BASE_URL}/api/v1/user/getUserById`,
+  deleteUser: `${API_BASE_URL}/api/v1/user/deleteUserById`,
 };
 
 export const FAVORITE_ENDPOINTS = {

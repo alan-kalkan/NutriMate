@@ -3,7 +3,6 @@ import { userService } from "../api/userService";
 export const handlePasswordChange = async (userId: string, newPassword: string) => {
     try {
         const response = await userService.updatePassword(userId, newPassword);
-        console.log('response', response);
         if (response.ok) {
             alert("Password updated successfully.");
         } else {

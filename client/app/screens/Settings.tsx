@@ -32,7 +32,6 @@ export default function Settings() {
     }, [userId])
   );
 
-  console.log("reviews", JSON.stringify(reviews, null, 2));
   return (
     <>
     {isLoggedIn ? (

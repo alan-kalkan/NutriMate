@@ -2,11 +2,9 @@ import { FAVORITE_ENDPOINTS } from "./endpoints";
 
 export const favoriteService = {
     async addFavorite(userId: string, productId: string) {
-        console.log('addFavorite', userId, productId);
         const response = await fetch(`${FAVORITE_ENDPOINTS.addFavorite}/${userId}/${productId}`, {
             method: 'POST',
         });
-        console.log('addFavorite response', response);
         if (!response.ok) {
             throw new Error('Failed to add favorite');
         }
