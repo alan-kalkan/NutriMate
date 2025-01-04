@@ -1,9 +1,1 @@
-# Create Procfile
-echo "web: npm run build && npm start" > Procfile
-
-# Add and commit
-git add Procfile
-git commit -m "Add Procfile for Heroku deployment"
-
-# Push to Heroku
-git push heroku main
+web: npm run build && npm start
