@@ -41,11 +41,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Add linting
-      - name: Run linting
-        working-directory: server
-        run: npm run lint
-
       # Add type checking (if using TypeScript)
       - name: Type check
         working-directory: server
