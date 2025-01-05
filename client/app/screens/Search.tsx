@@ -6,6 +6,7 @@ import { ScrollView } from "react-native";
 import { ProductCard } from "../components/ProductCard";
 import { ROUTES } from "../navigation/constants";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { Loader } from "../components/Loader";
 
 type RootStackParamList = {
   ProductDetails: { productId: string };
@@ -14,6 +15,7 @@ type RootStackParamList = {
 export default function Search() {
   const [query, setQuery] = useState("");
   const [brand, setBrand] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isBrandFilterActive, setIsBrandFilterActive] = useState(false);
@@ -37,6 +39,7 @@ export default function Search() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const searchCriteria: { query: string; brand: string } = { 
       query: query.trim() !== "" ? query : "",
       brand: brand.trim() !== "" ? brand : ""
@@ -45,18 +48,20 @@ export default function Search() {
     if (query.trim() !== "" || brand.trim() !== "") {
       searchService.searchProducts(searchCriteria).then((products) => {
         setProducts(products);
+        setIsLoading(false);
       });
     } else {
       setProducts([]);
+      setIsLoading(false);
     }
   }, [query, brand]);
 
   return (
     <View paddingTop={80} justifyContent="center" alignItems="center">
       <View position="absolute" right={0} top={50}>
-      <Button onPress={toggleBrandFilter}>
-        {isBrandFilterActive ? "Filter by brand" : "Filter by product"}
-      </Button>
+        <Button onPress={toggleBrandFilter}>
+          {isBrandFilterActive ? "Filter by brand" : "Filter by product"}
+        </Button>
       </View>
       <View width="90%" paddingTop={10}>
         <View height={50}>
@@ -76,7 +81,18 @@ export default function Search() {
           )}
         </View>
       </View>
-      {products.length > 0 ? (
+      {isLoading ? (
+        <View 
+          position="absolute" 
+          top="$19"
+          left={0}
+          right={0}
+          justifyContent="center" 
+          alignItems="center"
+        >
+          <Loader />
+        </View>
+      ) : products.length > 0 ? (
         <ScrollView>
           {products.map((product) => (
             <ProductCard
@@ -88,7 +104,9 @@ export default function Search() {
           ))}
         </ScrollView>
       ) : (
-        <Text paddingTop={20}>No product found...</Text>
+        <View justifyContent="center" alignItems="center">
+          <Text fontSize={16} fontStyle="italic" color="$gray10" paddingTop={20}>No product found...</Text>
+        </View>
       )}
     </View>
   );

@@ -11,6 +11,8 @@ import { ProductList } from "../components/ProductList";
 import ReviewProducts from "../screens/ReviewProducts";
 import ProductSubmit from "../components/ProductSubmit";
 import ProductForm from "../screens/ProductForm";
+import Account from "../screens/Account";
+import Authentication from "../screens/Authentication";
 
 type HomeStackParamList = {
   [ROUTES.PRODUCT_LIST]: undefined;

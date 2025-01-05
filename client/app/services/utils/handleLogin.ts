@@ -3,14 +3,14 @@ import { userService } from "../api/userService";
 const handleLogin = async (email: string, password: string, setIsLoggedIn: (isLoggedIn: boolean) => void, setUserId: (userId: string) => void) => {
 
     if (!email || !password) {
-        alert("Veuillez entrer un email et un mot de passe.");
+        alert("Please enter an email and a password.");
         return;
     }
     
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        alert("Veuillez entrer une adresse email valide.");
+        alert("Enter a valid email address.");
         return;
     }
     
@@ -25,7 +25,7 @@ const handleLogin = async (email: string, password: string, setIsLoggedIn: (isLo
         }
       } catch (error) {
         console.error("An error occurred during login", error);
-        alert("Une erreur est survenue. Veuillez réessayer.");
+        alert("An error occurred. Please try again.");
       }
   };
 

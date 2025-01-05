@@ -20,15 +20,12 @@ export const fetchProducts = async (
 export const fetchProductById = async (
     productId: string,
     setProduct: React.Dispatch<React.SetStateAction<Product | null>>,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     try {
       const data = await productService.getProductById(productId);
       setProduct(data);
     } catch (error) {
       console.error('Erreur lors de la récupération du produit:', error);
-    } finally {
-      setIsLoading(false);
     }
 };    
 

@@ -6,21 +6,32 @@ import { ArrowLeft, X } from 'lucide-react-native';
 import { handleDeleteProduct } from '../services/utils/handleDeleteProduct';
 import { TouchableOpacity } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { formatDate } from '../services/utils/formatDate';
 
 export default function ReviewProducts() {
     const [products, setProducts] = useState<Product[]>([]);
     const navigation = useNavigation();
 
+    const filterRecentProducts = (products: Product[]) => {
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        
+        return products.filter(product => {
+            const productDate = new Date(product.created_at);
+            return productDate >= oneWeekAgo;
+        });
+    };
+
     useEffect(() => {
         productService.getProducts().then((products) => {
-            setProducts(products);
+            setProducts(filterRecentProducts(products));
         });
     }, []);
 
     useFocusEffect(
         React.useCallback(() => {
             productService.getProducts().then((products) => {
-                setProducts(products);
+                setProducts(filterRecentProducts(products));
             });
         }, [])
     );
@@ -37,9 +48,12 @@ export default function ReviewProducts() {
             </TouchableOpacity>
             {products.map((product) => (
                 <View padding={5} marginVertical={5} borderWidth={1} borderColor="black" key={product.id}>
-                    <Text>{product.name}</Text>
-                    <Text>{product.description}</Text>
-                    <Text>{product.price}</Text>
+                    <Text fontSize={16} fontWeight="bold">{product.name}</Text>
+                    <Text fontSize={14} fontStyle="italic">{product.description}</Text>
+                    <Text fontSize={14} fontWeight="bold">{product.price}$</Text>
+                    <Text fontSize={14} fontStyle="italic">
+                        {formatDate(product.created_at)}
+                    </Text>
                     <TouchableOpacity onPress={() => handleDelete(product.id)}>
                         <X size={24} color="red" />
                     </TouchableOpacity>

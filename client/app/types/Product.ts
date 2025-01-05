@@ -14,4 +14,5 @@ export interface Product {
     category_id: string;
     reviews?: Review[];
     averageRating?: number;
+    created_at: string;
   }

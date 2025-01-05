@@ -28,7 +28,7 @@ export function ProductCard({
         animation="bouncy"
         overflow="hidden"
         onPress={onPress}
-        borderRadius="$0"
+        borderRadius={2}
         padding="$2"
       >
         <XStack padding="$4" alignItems="center" justifyContent="space-between" backgroundColor="white" width={350}>

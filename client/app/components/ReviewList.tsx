@@ -19,8 +19,8 @@ export const ReviewList: React.FC<ReviewListProps> = ({ productId }) => {
     try {
       const data = await reviewService.getReviewsByProduct(productId);
       setReviews(data);
-    } catch {
-      console.log("Failed to fetch reviews");
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
     } finally {
       setIsLoading(false);
     }
