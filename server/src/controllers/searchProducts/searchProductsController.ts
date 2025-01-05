@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const searchProducts = async (req: Request, res: Response): Promise<void> => {
     const { query, brand } = req.query;
-    console.log(query, brand);
+
     try {
         const products = await prisma.product.findMany({
             where: {

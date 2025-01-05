@@ -4,6 +4,8 @@ import { handleAddReview } from '../services/utils/handleAddReview';
 import { Rating } from 'react-native-ratings';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft } from 'lucide-react-native';
+import { TouchableOpacity } from 'react-native';
+import { Review } from '../types/Review';
 
 interface RouteParams {
     productId: string;
@@ -13,7 +15,7 @@ interface RouteParams {
 export default function ReviewScreen({ route }: { route: { params: RouteParams } }) {
     const { productId, userId } = route.params;
     const navigation = useNavigation();
-    const [review, setReview] = useState({
+    const [review, setReview] = useState<Review>({
         comment: '',
         rating: 0,
         product_id: productId,
@@ -22,14 +24,22 @@ export default function ReviewScreen({ route }: { route: { params: RouteParams }
 
     return (
         <View flex={1} justifyContent="center" alignItems="center" padding={16}>
-            <ArrowLeft color="black" size={24} onPress={() => navigation.goBack()} />
-            <Text>Add a Review</Text>
-            <Text>Comment</Text>
+            <View 
+                width="100%" 
+                flexDirection="row" 
+                alignItems="center" 
+                marginBottom={16}
+                justifyContent="center"
+            >
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <ArrowLeft color="black" size={24} />
+                </TouchableOpacity>
+                <Text fontSize={20} fontWeight="bold" marginLeft={10}>Add a Review</Text>
+            </View>
             <View width="100%">
                 <Input  multiline={true} placeholder="Review" value={review.comment} onChangeText={(text) => setReview({ ...review, comment: text })} />
             </View>
-            <View>
-                <Text>Rating</Text>
+            <View marginTop={10}>
                 <Rating
                     type='custom'
                     ratingCount={5}
@@ -40,8 +50,8 @@ export default function ReviewScreen({ route }: { route: { params: RouteParams }
                     onFinishRating={(rating: number) => setReview((prevReview) => ({ ...prevReview, rating }))}
                 />
             </View>
-            <Button onPress={() => handleAddReview(review, navigation)}>
-                <Text>Add Review</Text>
+            <Button onPress={() => handleAddReview(review, navigation.goBack)}>
+                <Text>Add your review!</Text>
             </Button>
         </View>
     );

@@ -1,5 +1,7 @@
 import { YStack, ScrollView } from "tamagui";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 import { ProductCard } from "./ProductCard";
 import { Product } from "../types/Product";
 
@@ -15,30 +17,30 @@ type RootStackParamList = {
 export function ProductList({ navigation }: { navigation: NavigationProp<RootStackParamList> }) {
   const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    const fetchProductsData = async () => {
-      try {
-        const fetchedProducts = await fetchProducts(setProducts);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchProductsData = async () => {
+        try {
+          const fetchedProducts = await fetchProducts(setProducts);
 
-        const productsWithRatings = await Promise.all(
-          fetchedProducts.map(async (product: Product) => {
-            const averageRating = await fetchReviews(product.id);
-            return { ...product, averageRating };
-          })
-        );
-        setProducts(productsWithRatings);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-  fetchProductsData();
-  }, []);
+          const productsWithRatings = await Promise.all(
+            fetchedProducts.map(async (product: Product) => {
+              const averageRating = await fetchReviews(product.id);
+              return { ...product, averageRating };
+            })
+          );
+          setProducts(productsWithRatings);
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+      };
+      fetchProductsData();
+    }, [])
+  );
 
-
-  
   return (
     <YStack height={400} paddingTop="$8">
-      <ScrollView marginHorizontal="$4" marginTop="$6">
+      <ScrollView marginHorizontal="$4" marginTop="$6" borderRadius={8} shadowColor="#000" shadowOffset={{width: 0, height: 2}} shadowOpacity={0.1} shadowRadius={4}>
         {products.map((product) => (
           <ProductCard
             key={product.id}

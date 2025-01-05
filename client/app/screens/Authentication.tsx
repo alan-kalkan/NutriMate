@@ -27,29 +27,57 @@ export default function Authentication() {
       flex={1}
       justifyContent="center"
       alignItems="center"
-      padding={16}
+      padding={32}
+      gap={16}
+      backgroundColor="$background"
     >
       <Input
         placeholder="email"
         value={email}
         onChangeText={setEmail}
+        width="100%"
+        size="$4"
+        marginBottom={8}
       />
       <Input
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        width="100%"
+        size="$4"
+        marginBottom={16}
       />
       {isLoggedIn ? (
-        <>
-          <Text>Logged in</Text>
-          <Button onPress={handleLogout}>Logout</Button>
-        </>
+        <View gap={12}>
+          <Text fontSize={16}>Logged in</Text>
+          <Button 
+            onPress={handleLogout}
+            size="$4"
+            width={200}
+            theme="active"
+          >
+            Logout
+          </Button>
+        </View>
       ) : (
-        <>
-          <Button onPress={() => handleLogin(email, password, setIsLoggedIn, setUserId)}>Login</Button>
-          <Button onPress={() => navigation.navigate(ROUTES.REGISTER as RouteNames)}>Register</Button>
-        </>
+        <View gap={12}>
+          <Button 
+            onPress={() => handleLogin(email, password, setIsLoggedIn, setUserId)}
+            size="$4"
+            width={200}
+            theme="active"
+          >
+            Login
+          </Button>
+          <Button 
+            onPress={() => navigation.navigate(ROUTES.REGISTER as RouteNames)}
+            size="$4"
+            width={200}
+          >
+            Register
+          </Button>
+        </View>
       )}
     </View>
   );

@@ -37,7 +37,7 @@ export default function ProductSubmit() {
                 </View>
             ) : (
                 <View>
-                    <Text>You are not logged in</Text>
+                    <Text fontSize={14} fontStyle="italic" textAlign="center" color="$gray10">Please <Text color="$gray10">login</Text> to add a product</Text>
                 </View>
             )}
         </>

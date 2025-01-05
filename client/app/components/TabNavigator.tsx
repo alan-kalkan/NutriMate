@@ -25,15 +25,22 @@ export default function TabNavigator() {
         },
         tabBarIcon: ({ focused, color, size }) => {
           const strokeWidth = focused ? 2 : 1;
-          const Icon = TAB_ICONS[route.name as keyof typeof TAB_ICONS]; 
+          const Icon = TAB_ICONS[route.name as keyof typeof TAB_ICONS];
           return (
             <View marginTop={10}>
-              <Icon size={size} color={color} strokeWidth={strokeWidth} width={30} height={30}/>
+              <Icon 
+                size={size} 
+                color={color} 
+                strokeWidth={strokeWidth} 
+                width={30} 
+                height={30}
+                fill={focused ? color : "none"}
+              />
             </View>
           );
         },
-        tabBarActiveTintColor: "black",
-        tabBarInactiveTintColor: "#757575",
+        tabBarActiveTintColor: "green",
+        tabBarInactiveTintColor: "black",
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "bold",

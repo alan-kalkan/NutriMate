@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, YStack, Image, ScrollView } from 'tamagui';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ArrowLeft, Heart } from 'lucide-react-native';
-
+import { Loader } from '../components/Loader';
 import { Product } from '../types/Product';
 import { ReviewList } from '../components/ReviewList';
 import { AddReview } from '../components/AddReview';
@@ -20,48 +20,49 @@ export default function ProductDetails({ route }: { route: { params: { productId
   const [isFavorite, setIsFavorite] = useState(false);
   const { isLoggedIn, userId } = useAuth();
 
-  useEffect(() => {
-    fetchProductById(productId, setProduct, setIsLoading);
-    if (isLoggedIn) {
-      fetchFavoritesByProductId(userId, productId).then(setIsFavorite);
+  const toggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await favoriteService.deleteFavorite(userId, productId);
+        setIsFavorite(false);
+      } else {
+        await favoriteService.addFavorite(userId, productId);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
     }
-  }, [productId]);
-  
-  const toggleFavorite =  async () => {
-    if (isFavorite) {
-      await favoriteService.deleteFavorite(userId, productId);
-    } else {
-      await favoriteService.addFavorite(userId, productId);
-    }
-    setIsFavorite(prevState => !prevState);
   };
 
   useFocusEffect(
     useCallback(() => {
       const fetchData = async () => {
         setIsLoading(true);
-        await fetchProductById(productId, setProduct, setIsLoading);
-        if (isLoggedIn) {
-          const favoriteStatus = await fetchFavoritesByProductId(userId, productId);
-          setIsFavorite(favoriteStatus);
+        try {
+          await fetchProductById(productId, setProduct);
+          if (isLoggedIn) {
+            const favoriteStatus = await fetchFavoritesByProductId(userId, productId);
+            setIsFavorite(!!favoriteStatus);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false);
         }
-        setIsLoading(false);
       };
 
       fetchData();
-
-      return () => {};
     }, [productId, isLoggedIn, userId])
   );
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <View flex={1} height="100%" justifyContent="center" alignItems="center"><Loader /></View>;
   }
 
   if (!product) {
     return <Text>Product not found</Text>;
   }
   return (
-    <ScrollView marginHorizontal="$4" paddingTop="$8">
+    <ScrollView marginHorizontal="$4" paddingTop="$8" shadowColor="#000" shadowOffset={{width: 0, height: 2}} shadowOpacity={0.1} shadowRadius={4}>
     <YStack flexDirection="row" justifyContent="center" alignItems="center" marginTop={16} marginLeft={16}>
       <ArrowLeft
         width={30}
@@ -87,7 +88,12 @@ export default function ProductDetails({ route }: { route: { params: { productId
           </Text>
           {isLoggedIn && (
               <TouchableOpacity onPress={toggleFavorite} style={{ marginBottom: 8 }}>
-              <Heart strokeWidth={0.75} fill={isFavorite ? "red" : "none"} color={isFavorite ? "red" : "black"} />
+              <Heart 
+                key={`favorite-${isFavorite}`}
+                strokeWidth={0.75} 
+                fill={isFavorite ? "red" : "none"} 
+                color="red" 
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -95,14 +101,14 @@ export default function ProductDetails({ route }: { route: { params: { productId
           {product.description}
         </Text>
         <Text fontSize={16} color="#666" fontFamily="$archivo" marginBottom={8}>
-          Prix: {product.price} €
+          Price: {product.price}$
         </Text>
         <Text fontSize={16} color="#666" fontFamily="$archivo" marginBottom={8}>
-          Durée du traitement: {product.treatmentDuration} mois
+          Treatment Duration: {product.treatmentDuration} months
         </Text>
       </YStack>
       <ReviewList productId={productId} />
-      <AddReview productId={productId} />
+      <AddReview productId={productId} isLoading={isLoading} />
     </View>
     </ScrollView>
   );
