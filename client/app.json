@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "client",
+    "name": "Nutrimate: ",
+    "displayName": "Nutrimate: ",
     "slug": "client",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.client"
+      "bundleIdentifier": "com.alankalkan.client"
     },
     "web": {
       "bundler": "metro",
@@ -32,10 +33,13 @@
       },
       "eas": {
         "projectId": "79d5985c-9ed9-43a0-a81d-1d0bd67c7da0"
+      },
+      "ios": {
+        "bundleIdentifier": "com.alankalkan.client"
       }
     },
     "android": {
-      "package": "com.anonymous.client"
+      "package": "com.alankalkan.client"
     }
   }
 }

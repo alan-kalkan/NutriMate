@@ -16,12 +16,10 @@
     }
   },
   "submit": {
-    "production": {},
-    "ios": {
-      "workflow": "managed"
-    },
-    "android": {
-      "workflow": "managed"
+    "production": {
+      "ios": {
+        
+      }
     }
   }
 }
